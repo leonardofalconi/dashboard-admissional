@@ -1,5 +1,6 @@
-import Router from "~/router";
-import { Header } from "./components/Header";
+import Router from '~/router'
+
+import { Header } from './components/Header'
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       </Header>
       <Router />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
