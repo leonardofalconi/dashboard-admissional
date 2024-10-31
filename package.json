@@ -23,8 +23,10 @@
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^2.0.4",
-    "@testing-library/jest-dom": "^6.4.6",
-    "@testing-library/react": "13.0.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.2",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/react-hooks": "^8.0.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/jest": "^29.5.14",
     "@types/react": "^18.2.66",
