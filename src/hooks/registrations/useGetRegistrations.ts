@@ -14,6 +14,7 @@ export const useGetRegistrations = ({
   const getRegistrationsFromApi = useCallback(async () => {
     setLoading(true)
     setCalled(true)
+    setError(undefined)
 
     try {
       const { data } = await registrationsProvider.GET()
