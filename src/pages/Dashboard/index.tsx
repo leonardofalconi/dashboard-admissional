@@ -1,50 +1,45 @@
-import { useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { API } from '~/api'
 import { useRegistrationsContext } from '~/contexts/useRegistrations'
-import { ROUTES } from '~/router/routes'
 
 import * as Styled from './styles'
 import { useGetRegistrations } from '../../hooks/registrations/useGetRegistrations'
 import { Collumns } from './components/Columns'
 import { SearchBar } from './components/Searchbar'
+import { useDashboardStates } from './useDashboardStates'
 
 export const DashboardPage = () => {
   const history = useHistory()
 
-  const { registrations, setRegistrations } = useRegistrationsContext()
+  const registrationsContext = useRegistrationsContext()
 
-  const { registrationsLoading, registrationsError, getRegistrationsCalled, registrationsRefresh } =
-    useGetRegistrations({
-      registrationsProvider: API.REGISTRATION,
-      setRegistrations,
-      hasRegistrationsCached: Boolean(registrations.length),
-    })
+  const getRegistrationsStates = useGetRegistrations({
+    registrationsProvider: API.REGISTRATION,
+    setRegistrations: registrationsContext.setRegistrations,
+    hasRegistrationsCached: Boolean(registrationsContext.registrations.length),
+  })
 
-  const showRegistrations = useMemo(
-    () => (getRegistrationsCalled && !registrationsLoading && !registrationsError) || registrations,
-    [getRegistrationsCalled, registrations, registrationsError, registrationsLoading],
-  )
-
-  const showRegistrationsLoading = useMemo(
-    () => registrationsLoading && !registrations.length,
-    [registrations, registrationsLoading],
-  )
-
-  const showRegistrationsError = useMemo(() => registrationsError, [registrationsError])
-
-  const onNewAdmissionButtonClick = useCallback(() => history.push(ROUTES.newUser), [history])
+  const dashboardStates = useDashboardStates({
+    getRegistrationsCalled: getRegistrationsStates.getRegistrationsCalled,
+    hasRegistrations: Boolean(registrationsContext.registrations.length),
+    hasRegistrationsError: Boolean(getRegistrationsStates.registrationsError),
+    registrationsLoading: getRegistrationsStates.registrationsLoading,
+    routerProvider: history,
+  })
 
   return (
     <Styled.Container>
-      <SearchBar onRefreshButtonClick={registrationsRefresh} onNewAdmissionButtonClick={onNewAdmissionButtonClick} />
+      <SearchBar
+        onRefreshButtonClick={getRegistrationsStates.registrationsRefresh}
+        onNewAdmissionButtonClick={dashboardStates.onNewAdmissionButtonClick}
+      />
       <>
-        {showRegistrations && <Collumns registrations={registrations} />}
+        {dashboardStates.showRegistrations && <Collumns registrations={registrationsContext.registrations} />}
 
-        {showRegistrationsError && <p>Error</p>}
+        {dashboardStates.showRegistrationsError && <p>Error</p>}
 
-        {showRegistrationsLoading && <p>Loading</p>}
+        {dashboardStates.showRegistrationsLoading && <p>Loading</p>}
       </>
     </Styled.Container>
   )
