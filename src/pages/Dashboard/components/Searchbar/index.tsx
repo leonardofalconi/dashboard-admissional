@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { HiRefresh } from 'react-icons/hi'
 import { useHistory } from 'react-router-dom'
 
@@ -7,8 +8,9 @@ import { TextField } from '~/components/TextField'
 import { ROUTES } from '~/router/routes'
 
 import * as Styled from './styles'
+import { ISearchBarProps } from './types'
 
-export const SearchBar = () => {
+export const SearchBar: FC<ISearchBarProps> = ({ onRefreshButtonClick }) => {
   const history = useHistory()
 
   const goToNewAdmissionPage = () => {
@@ -19,7 +21,7 @@ export const SearchBar = () => {
     <Styled.Container>
       <TextField id="cpf" placeholder="Digite um CPF válido" />
       <Styled.Actions>
-        <IconButton aria-label="refetch">
+        <IconButton onClick={onRefreshButtonClick} aria-label="refetch">
           <HiRefresh />
         </IconButton>
         <Button onClick={goToNewAdmissionPage}>Nova Admissão</Button>

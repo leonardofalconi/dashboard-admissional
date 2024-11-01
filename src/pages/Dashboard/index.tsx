@@ -11,11 +11,12 @@ import { SearchBar } from './components/Searchbar'
 export const DashboardPage = () => {
   const { registrations, setRegistrations } = useRegistrationsContext()
 
-  const { registrationsLoading, registrationsError, getRegistrationsCalled } = useGetRegistrations({
-    registrationsProvider: API.REGISTRATION,
-    setRegistrations,
-    hasRegistrationsCached: Boolean(registrations.length),
-  })
+  const { registrationsLoading, registrationsError, getRegistrationsCalled, registrationsRefresh } =
+    useGetRegistrations({
+      registrationsProvider: API.REGISTRATION,
+      setRegistrations,
+      hasRegistrationsCached: Boolean(registrations.length),
+    })
 
   const showRegistrations = useMemo(
     () => (getRegistrationsCalled && !registrationsLoading && !registrationsError) || registrations,
@@ -31,7 +32,7 @@ export const DashboardPage = () => {
 
   return (
     <Styled.Container>
-      <SearchBar />
+      <SearchBar onRefreshButtonClick={registrationsRefresh} />
       <>
         {showRegistrations && <Collumns registrations={registrations} />}
 

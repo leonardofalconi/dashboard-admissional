@@ -30,6 +30,8 @@ export const useGetRegistrations = ({
     }
   }, [registrationsProvider, setRegistrations])
 
+  const registrationsRefresh = () => getRegistrationsFromApi()
+
   useEffect(() => {
     if (hasRegistrationsCached) return
 
@@ -40,5 +42,6 @@ export const useGetRegistrations = ({
     registrationsError: error,
     registrationsLoading: loading,
     getRegistrationsCalled: called,
+    registrationsRefresh,
   }
 }

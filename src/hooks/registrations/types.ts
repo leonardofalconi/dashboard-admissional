@@ -10,5 +10,6 @@ export interface IUseGetRegistrationsParams {
 export type TUseGetRegistrationsReturn = {
   registrationsError?: Error
   registrationsLoading: boolean
+  registrationsRefresh: () => void
   getRegistrationsCalled: boolean
 }
