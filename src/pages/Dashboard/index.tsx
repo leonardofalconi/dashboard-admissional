@@ -1,23 +1,44 @@
+import { useMemo } from 'react'
+
+import { API } from '~/api'
+import { useRegistrationsContext } from '~/contexts/useRegistrations'
+
 import * as Styled from './styles'
+import { useGetRegistrations } from '../../hooks/registrations/useGetRegistrations'
 import { Collumns } from './components/Columns'
 import { SearchBar } from './components/Searchbar'
 
 export const DashboardPage = () => {
+  const { registrations, setRegistrations } = useRegistrationsContext()
+
+  const { registrationsLoading, registrationsError, getRegistrationsCalled } = useGetRegistrations({
+    registrationsProvider: API.REGISTRATION,
+    setRegistrations,
+    hasRegistrationsCached: Boolean(registrations.length),
+  })
+
+  const showRegistrations = useMemo(
+    () => (getRegistrationsCalled && !registrationsLoading && !registrationsError) || registrations,
+    [getRegistrationsCalled, registrations, registrationsError, registrationsLoading],
+  )
+
+  const showRegistrationsLoading = useMemo(
+    () => registrationsLoading && !registrations,
+    [registrations, registrationsLoading],
+  )
+
+  const showRegistrationsError = useMemo(() => registrationsError, [registrationsError])
+
   return (
     <Styled.Container>
       <SearchBar />
-      <Collumns
-        registrations={[
-          {
-            id: 1,
-            admissionDate: '23/10/2023',
-            email: 'maria@caju.com.br',
-            employeeName: 'Maria Silva',
-            status: 'REVIEW',
-            cpf: '12345678901',
-          },
-        ]}
-      />
+      <>
+        {showRegistrations && <Collumns registrations={registrations} />}
+
+        {showRegistrationsError && <p>Error</p>}
+
+        {showRegistrationsLoading && <p>Loading</p>}
+      </>
     </Styled.Container>
   )
 }
