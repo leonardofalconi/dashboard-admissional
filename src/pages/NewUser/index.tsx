@@ -1,33 +1,33 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useHistory } from 'react-router-dom'
 
-import Button from '~/components/Buttons'
-import { IconButton } from '~/components/Buttons/IconButton'
-import TextField from '~/components/TextField'
-import routes from '~/router/routes'
+import { IconButton } from '~/components/IconButton'
+import { TextField } from '~/components/TextField'
+import { ROUTES } from '~/router/routes'
 
-import * as S from './styles'
+import * as Styled from './styles'
 
-const NewUserPage = () => {
+export const NewUserPage = () => {
   const history = useHistory()
+
   const goToHome = () => {
-    history.push(routes.dashboard)
+    history.push(ROUTES.dashboard)
   }
 
   return (
-    <S.Container>
-      <S.Card>
-        <IconButton onClick={() => goToHome()} aria-label="back">
+    <Styled.Container>
+      <Styled.Card>
+        <IconButton onClick={goToHome} aria-label="back">
           <HiOutlineArrowLeft size={24} />
         </IconButton>
-        <TextField placeholder="Nome" label="Nome" />
-        <TextField placeholder="Email" label="Email" type="email" />
-        <TextField placeholder="CPF" label="CPF" />
-        <TextField label="Data de admissão" type="date" />
-        <Button onClick={() => {}}>Cadastrar</Button>
-      </S.Card>
-    </S.Container>
+        <TextField id="name" placeholder="Nome" label="Nome" />
+        <TextField id="email" placeholder="Email" label="Email" type="email" />
+        <TextField id="cpf" placeholder="CPF" label="CPF" />
+        <TextField id="date" label="Data de admissão" type="date" />
+        <Styled.Button width="150px" onClick={() => {}}>
+          Cadastrar
+        </Styled.Button>
+      </Styled.Card>
+    </Styled.Container>
   )
 }
-
-export default NewUserPage

@@ -1,8 +1,6 @@
-const routes = {
-  identify: '/identify',
+import { IRoutes } from '~/entities/routes'
+
+export const ROUTES: IRoutes = {
   dashboard: '/dashboard',
-  history: '/history',
   newUser: '/new-user',
 }
-
-export default routes

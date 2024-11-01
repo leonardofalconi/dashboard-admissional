@@ -1,37 +1,37 @@
+import { FC } from 'react'
 import { HiOutlineCalendar, HiOutlineMail, HiOutlineTrash, HiOutlineUser } from 'react-icons/hi'
 
-import { ButtonSmall } from '~/components/Buttons'
+import { SmallButton } from '~/components/SmallButton'
 
-import * as S from './styles'
+import * as Styled from './styles'
+import { IRegistrationCardProps } from './types'
 
-type Props = {
-  data: any
-}
+export const RegistrationCard: FC<IRegistrationCardProps> = ({ contacts }) => (
+  <Styled.Card>
+    <Styled.IconAndText>
+      <HiOutlineUser />
+      <h3>{contacts.employeeName}</h3>
+    </Styled.IconAndText>
+    <Styled.IconAndText>
+      <HiOutlineMail />
+      <p>{contacts.email}</p>
+    </Styled.IconAndText>
+    <Styled.IconAndText>
+      <HiOutlineCalendar />
+      <span>{contacts.admissionDate}</span>
+    </Styled.IconAndText>
+    <Styled.Actions>
+      <SmallButton backgroundColor="#ff919a" textColor="#000000">
+        Reprovar
+      </SmallButton>
+      <SmallButton backgroundColor="#9be59b" textColor="#000000">
+        Aprovar
+      </SmallButton>
+      <SmallButton backgroundColor="#ff8858" textColor="#000000">
+        Revisar novamente
+      </SmallButton>
 
-const RegistrationCard = (props: Props) => {
-  return (
-    <S.Card>
-      <S.IconAndText>
-        <HiOutlineUser />
-        <h3>{props.data.employeeName}</h3>
-      </S.IconAndText>
-      <S.IconAndText>
-        <HiOutlineMail />
-        <p>{props.data.email}</p>
-      </S.IconAndText>
-      <S.IconAndText>
-        <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
-      </S.IconAndText>
-      <S.Actions>
-        <ButtonSmall bgcolor="rgb(255, 145, 154)">Reprovar</ButtonSmall>
-        <ButtonSmall bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
-        <ButtonSmall bgcolor="#ff8858">Revisar novamente</ButtonSmall>
-
-        <HiOutlineTrash />
-      </S.Actions>
-    </S.Card>
-  )
-}
-
-export default RegistrationCard
+      <HiOutlineTrash />
+    </Styled.Actions>
+  </Styled.Card>
+)

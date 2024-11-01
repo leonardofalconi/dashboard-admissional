@@ -1,33 +1,25 @@
-import * as S from './styles'
-import RegistrationCard from '../RegistrationCard'
+import { FC } from 'react'
 
-const allColumns = [
-  { status: 'REVIEW', title: 'Pronto para revisar' },
-  { status: 'APPROVED', title: 'Aprovado' },
-  { status: 'REPROVED', title: 'Reprovado' },
-]
+import * as Styled from './styles'
+import { RegistrationCard } from '../RegistrationCard'
+import { ALL_COLUMNS } from './constants'
+import { IColumnsProps } from './types'
 
-type Props = {
-  registrations?: any[]
-}
-const Collumns = (props: Props) => {
-  return (
-    <S.Container>
-      {allColumns.map(collum => {
-        return (
-          <S.Column status={collum.status} key={collum.title}>
-            <>
-              <S.TitleColumn status={collum.status}>{collum.title}</S.TitleColumn>
-              <S.CollumContent>
-                {props?.registrations?.map(registration => {
-                  return <RegistrationCard data={registration} key={registration.id} />
-                })}
-              </S.CollumContent>
-            </>
-          </S.Column>
-        )
-      })}
-    </S.Container>
-  )
-}
-export default Collumns
+export const Collumns: FC<IColumnsProps> = ({ registrations }) => (
+  <Styled.Container>
+    {ALL_COLUMNS.map(collum => {
+      return (
+        <Styled.Column $status={collum.status} key={collum.title}>
+          <>
+            <Styled.TitleColumn $status={collum.status}>{collum.title}</Styled.TitleColumn>
+            <Styled.CollumContent>
+              {registrations?.map(
+                contact => contact.status === collum.status && <RegistrationCard contacts={contact} key={contact.id} />,
+              )}
+            </Styled.CollumContent>
+          </>
+        </Styled.Column>
+      )
+    })}
+  </Styled.Container>
+)
