@@ -27,3 +27,17 @@ export type TUsePatchRegistrationReturn = {
   patchRegistrationCalled: boolean
   updateRegistrationFromApi: (params: TUsePatchRegistrationUpdateParams) => void
 }
+
+export interface IUseDeleteRegistrationParams {
+  setRegistrations: React.Dispatch<React.SetStateAction<IContact[]>>
+  registrationsProvider: TApi['REGISTRATION']
+}
+
+export type TUseDeleteRegistrationRemoveParams = { id: IContact['id'] }
+
+export type TUseDeleteRegistrationReturn = {
+  deleteRegistrationError?: Error
+  deleteRegistrationLoading: boolean
+  deleteRegistrationCalled: boolean
+  removeRegistrationFromApi: (params: TUseDeleteRegistrationRemoveParams) => void
+}

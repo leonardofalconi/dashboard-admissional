@@ -15,18 +15,21 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
   const showRegistrationsLoading = useMemo(
     () =>
       (params.registrationsLoading && !params.hasRegistrationsError) ||
-      (params.patchRegistrationLoading && !params.hasPatchRegistrationError),
+      (params.patchRegistrationLoading && !params.hasPatchRegistrationError) ||
+      (params.deleteRegistrationLoading && !params.hasDeleteRegistrationError),
     [
-      params.hasRegistrationsError,
       params.registrationsLoading,
+      params.hasRegistrationsError,
       params.patchRegistrationLoading,
       params.hasPatchRegistrationError,
+      params.deleteRegistrationLoading,
+      params.hasDeleteRegistrationError,
     ],
   )
 
   const showRegistrationsError = useMemo(
-    () => params.hasRegistrationsError || params.hasPatchRegistrationError,
-    [params.hasPatchRegistrationError, params.hasRegistrationsError],
+    () => params.hasRegistrationsError || params.hasPatchRegistrationError || params.hasDeleteRegistrationError,
+    [params.hasDeleteRegistrationError, params.hasPatchRegistrationError, params.hasRegistrationsError],
   )
 
   const onNewAdmissionButtonClick = useCallback(
