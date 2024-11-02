@@ -41,3 +41,18 @@ export type TUseDeleteRegistrationReturn = {
   deleteRegistrationCalled: boolean
   removeRegistrationFromApi: (params: TUseDeleteRegistrationRemoveParams) => void
 }
+
+export interface IUsePostRegistrationParams {
+  setRegistrations: React.Dispatch<React.SetStateAction<IContact[]>>
+  registrationsProvider: TApi['REGISTRATION']
+  hasRegistrationsCached: boolean
+}
+
+export type TUsePostRegistrationCreateParams = { contact: Omit<IContact, 'id'> }
+
+export type TUsePostRegistrationReturn = {
+  postRegistrationError?: Error
+  postRegistrationLoading: boolean
+  postRegistrationCalled: boolean
+  createRegistrationFromApi: (params: TUsePostRegistrationCreateParams) => void
+}
