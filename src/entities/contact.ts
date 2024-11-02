@@ -1,7 +1,7 @@
 export type TContactStatus = 'REVIEW' | 'APPROVED' | 'REPROVED'
 
 export interface IContact {
-  id: number
+  id: string
   admissionDate: string
   email: string
   employeeName: string

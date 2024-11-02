@@ -1,5 +1,6 @@
-import { IContact } from '~/entities/contact'
+import { IContact, TContactStatus } from '~/entities/contact'
 
 export interface IRegistrationCardProps {
-  contacts: IContact
+  contact: IContact
+  onActions: (params: { actionType: TContactStatus | 'DELETE'; contact: IContact }) => void
 }

@@ -4,26 +4,35 @@ import { ROUTES } from '~/router/routes'
 
 import { IUseDashboardStates, TUseDashboardStates } from './types'
 
-export const useDashboardStates = ({
-  getRegistrationsCalled,
-  registrationsLoading,
-  hasRegistrations,
-  hasRegistrationsError,
-  routerProvider,
-}: IUseDashboardStates): TUseDashboardStates => {
+export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardStates => {
   const showRegistrations = useMemo(
-    () => (getRegistrationsCalled && !registrationsLoading && !hasRegistrationsError) || hasRegistrations,
-    [getRegistrationsCalled, hasRegistrations, hasRegistrationsError, registrationsLoading],
+    () =>
+      (params.getRegistrationsCalled && !params.registrationsLoading && !params.hasRegistrationsError) ||
+      params.hasRegistrations,
+    [params.getRegistrationsCalled, params.hasRegistrations, params.hasRegistrationsError, params.registrationsLoading],
   )
 
   const showRegistrationsLoading = useMemo(
-    () => registrationsLoading && !hasRegistrationsError,
-    [hasRegistrationsError, registrationsLoading],
+    () =>
+      (params.registrationsLoading && !params.hasRegistrationsError) ||
+      (params.patchRegistrationLoading && !params.hasPatchRegistrationError),
+    [
+      params.hasRegistrationsError,
+      params.registrationsLoading,
+      params.patchRegistrationLoading,
+      params.hasPatchRegistrationError,
+    ],
   )
 
-  const showRegistrationsError = useMemo(() => Boolean(hasRegistrationsError), [hasRegistrationsError])
+  const showRegistrationsError = useMemo(
+    () => params.hasRegistrationsError || params.hasPatchRegistrationError,
+    [params.hasPatchRegistrationError, params.hasRegistrationsError],
+  )
 
-  const onNewAdmissionButtonClick = useCallback(() => routerProvider.push(ROUTES.newUser), [routerProvider])
+  const onNewAdmissionButtonClick = useCallback(
+    () => params.routerProvider.push(ROUTES.newUser),
+    [params.routerProvider],
+  )
 
   return {
     showRegistrations,

@@ -1,6 +1,8 @@
 import { IContact, TContactStatus } from '~/entities/contact'
 
-export type TCOLUMN = {
+import { IRegistrationCardProps } from '../RegistrationCard/types'
+
+export type TColumn = {
   title: string
   status: TContactStatus
 }
@@ -9,8 +11,9 @@ export type TRegistrationColorsMap = { [key in TContactStatus]: { background: st
 
 export interface IColumnsProps {
   registrations?: IContact[]
+  actions: IRegistrationCardProps['onActions']
 }
 
 export type TColumnStyled = {
-  $status: TCOLUMN['status']
+  $status: TColumn['status']
 }

@@ -1,8 +1,10 @@
 export interface IUseDashboardStates {
   registrationsLoading: boolean
+  patchRegistrationLoading: boolean
   getRegistrationsCalled: boolean
   hasRegistrations: boolean
-  hasRegistrationsError?: boolean
+  hasRegistrationsError: boolean
+  hasPatchRegistrationError: boolean
   routerProvider: {
     push: (route: string) => void
   }
