@@ -2,9 +2,9 @@ import { TUseNewUserFormField } from './types'
 
 export const FORM_FIELDS: TUseNewUserFormField[] = [
   {
-    id: 'name',
+    id: 'employeeName',
     placeholder: 'Nome',
-    label: 'Nome',
+    label: 'Nome *',
     required: true,
     type: 'text',
     pattern: /^(?! )[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)+(?<! )$/,
@@ -16,7 +16,7 @@ export const FORM_FIELDS: TUseNewUserFormField[] = [
   {
     id: 'email',
     placeholder: 'E-mail',
-    label: 'E-mail',
+    label: 'E-mail *',
     required: true,
     type: 'text',
     pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -28,7 +28,7 @@ export const FORM_FIELDS: TUseNewUserFormField[] = [
   {
     id: 'cpf',
     placeholder: 'CPF',
-    label: 'CPF',
+    label: 'CPF *',
     required: true,
     type: 'text',
     mask: 'cpf',
@@ -41,7 +41,7 @@ export const FORM_FIELDS: TUseNewUserFormField[] = [
   },
   {
     id: 'admissionDate',
-    label: 'Data de admissão',
+    label: 'Data de admissão *',
     required: true,
     type: 'date',
     messages: {

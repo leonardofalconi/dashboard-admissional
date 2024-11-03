@@ -1,26 +1,34 @@
+import { BaseSyntheticEvent } from 'react'
 import { FormState, UseFormRegister, UseFormSetValue, ValidationRule } from 'react-hook-form'
 
-export type IUseNewUserStatesFormData = {
-  name: string
-  email: string
-  cpf: string
-  admissionDate: string
-}
+import { IContact } from '~/entities/contact'
+
+export type IUseNewUserStatesFormData = Omit<IContact, 'status' | 'id'>
+
+export type TUseNewUserStatesSubmitCallbackParams = { contact: Omit<IContact, 'id'> }
+
+export type TUseNewUserStatesHandleSubmitParams = IUseNewUserStatesFormData
 
 export type TUseNewUserStates = {
   routerProvider: {
     push: (route: string) => void
   }
+  formSubmitCallback: (params: TUseNewUserStatesSubmitCallbackParams) => void
+  postRegistrationLoading: boolean
+  postRegistrationCalled: boolean
+  hasPostRegistrationError: boolean
 }
 
 export type TUseNewUserStatesReturn = {
   form: {
-    onSubmit: () => void
+    onSubmit: (event: BaseSyntheticEvent<object, any, any>) => void
     register: UseFormRegister<IUseNewUserStatesFormData>
     states: FormState<IUseNewUserStatesFormData>
     setValue: UseFormSetValue<IUseNewUserStatesFormData>
   }
-  goToHome: () => void
+  onPrevButtonClick: () => void
+  showPostRegistrationLoading: boolean
+  showPostRegistrationError: boolean
 }
 
 export type TUseNewUserFormField = {

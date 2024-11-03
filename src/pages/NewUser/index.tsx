@@ -1,23 +1,40 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useHistory } from 'react-router-dom'
 
+import { API } from '~/api'
 import { IconButton } from '~/components/IconButton'
 import { TextField } from '~/components/TextField'
+import { useRegistrationsContext } from '~/contexts/useRegistrations'
+import { usePostRegistration } from '~/hooks/registrations/usePostRegistration'
 import { formMask } from '~/utils/form'
 
 import * as Styled from './styles'
 import { FORM_FIELDS } from './constants'
-import { useNewUSerStates } from './useNewUserStates'
+import { useNewUserStates } from './useNewUserStates'
 
 export const NewUserPage = () => {
   const history = useHistory()
 
-  const newUserStates = useNewUSerStates({ routerProvider: history })
+  const registrationContext = useRegistrationsContext()
+
+  const usePostRegistrationStates = usePostRegistration({
+    registrationsProvider: API.REGISTRATION,
+    setRegistrations: registrationContext.setRegistrations,
+    hasRegistrationsCached: Boolean(registrationContext.registrations.length),
+  })
+
+  const newUserStates = useNewUserStates({
+    routerProvider: history,
+    formSubmitCallback: usePostRegistrationStates.createRegistrationFromApi,
+    postRegistrationCalled: usePostRegistrationStates.postRegistrationCalled,
+    postRegistrationLoading: usePostRegistrationStates.postRegistrationLoading,
+    hasPostRegistrationError: Boolean(usePostRegistrationStates.postRegistrationError),
+  })
 
   return (
     <Styled.Container>
       <Styled.BoxIconButton>
-        <IconButton onClick={newUserStates.goToHome} aria-label="back">
+        <IconButton onClick={newUserStates.onPrevButtonClick} aria-label="back">
           <HiOutlineArrowLeft size={24} />
         </IconButton>
       </Styled.BoxIconButton>
@@ -37,6 +54,10 @@ export const NewUserPage = () => {
         ))}
         <Styled.Button width="150px">Cadastrar</Styled.Button>
       </Styled.Form>
+
+      {newUserStates.showPostRegistrationError && <p>Error</p>}
+
+      {newUserStates.showPostRegistrationLoading && <p>Loading</p>}
     </Styled.Container>
   )
 }
