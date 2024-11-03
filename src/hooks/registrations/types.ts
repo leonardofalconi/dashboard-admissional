@@ -55,4 +55,6 @@ export type TUsePostRegistrationReturn = {
   postRegistrationLoading: boolean
   postRegistrationCalled: boolean
   createRegistrationFromApi: (params: TUsePostRegistrationCreateParams) => void
+  clearErrorState: () => void
+  clearCalledState: () => void
 }

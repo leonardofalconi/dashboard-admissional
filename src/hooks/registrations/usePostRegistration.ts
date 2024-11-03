@@ -36,10 +36,16 @@ export const usePostRegistration = ({
     [registrationsProvider, setRegistrations, hasRegistrationsCached],
   )
 
+  const clearErrorState = useCallback(() => setError(undefined), [])
+
+  const clearCalledState = useCallback(() => setCalled(false), [])
+
   return {
     postRegistrationError: error,
     postRegistrationLoading: loading,
     postRegistrationCalled: called,
     createRegistrationFromApi,
+    clearErrorState,
+    clearCalledState,
   }
 }

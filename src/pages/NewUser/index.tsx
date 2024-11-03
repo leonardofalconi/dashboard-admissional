@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { API } from '~/api'
 import { IconButton } from '~/components/IconButton'
 import { TextField } from '~/components/TextField'
+import { useNotifyContext } from '~/contexts/useNotify'
 import { useRegistrationsContext } from '~/contexts/useRegistrations'
 import { usePostRegistration } from '~/hooks/registrations/usePostRegistration'
 import { formMask } from '~/utils/form'
@@ -14,6 +15,8 @@ import { useNewUserStates } from './useNewUserStates'
 
 export const NewUserPage = () => {
   const history = useHistory()
+
+  const notifyContext = useNotifyContext()
 
   const registrationContext = useRegistrationsContext()
 
@@ -29,6 +32,9 @@ export const NewUserPage = () => {
     postRegistrationCalled: usePostRegistrationStates.postRegistrationCalled,
     postRegistrationLoading: usePostRegistrationStates.postRegistrationLoading,
     hasPostRegistrationError: Boolean(usePostRegistrationStates.postRegistrationError),
+    notifyProvider: notifyContext,
+    postClearErrorState: usePostRegistrationStates.clearErrorState,
+    postClearCalledState: usePostRegistrationStates.clearCalledState,
   })
 
   return (
@@ -38,7 +44,7 @@ export const NewUserPage = () => {
           <HiOutlineArrowLeft size={24} />
         </IconButton>
       </Styled.BoxIconButton>
-      <Styled.Form onSubmit={newUserStates.form.onSubmit}>
+      <Styled.Form onSubmit={!newUserStates.showPostRegistrationLoading ? newUserStates.form.onSubmit : undefined}>
         {FORM_FIELDS.map(({ required, pattern, messages, maxLength, mask, ...field }) => (
           <TextField
             key={field.id}
@@ -52,10 +58,10 @@ export const NewUserPage = () => {
             onChange={e => mask && newUserStates.form.setValue(field.id, formMask[mask]({ value: e.target.value }))}
           />
         ))}
-        <Styled.Button width="150px">Cadastrar</Styled.Button>
+        <Styled.Button disabled={newUserStates.showPostRegistrationLoading} width="150px">
+          Cadastrar
+        </Styled.Button>
       </Styled.Form>
-
-      {newUserStates.showPostRegistrationError && <p>Error</p>}
 
       {newUserStates.showPostRegistrationLoading && <p>Loading</p>}
     </Styled.Container>

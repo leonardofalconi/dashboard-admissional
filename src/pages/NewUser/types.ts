@@ -13,10 +13,13 @@ export type TUseNewUserStates = {
   routerProvider: {
     push: (route: string) => void
   }
+  notifyProvider: { setNotify: (params: { title: string; message: string; status: 'success' | 'error' }) => void }
   formSubmitCallback: (params: TUseNewUserStatesSubmitCallbackParams) => void
   postRegistrationLoading: boolean
   postRegistrationCalled: boolean
   hasPostRegistrationError: boolean
+  postClearErrorState: () => void
+  postClearCalledState: () => void
 }
 
 export type TUseNewUserStatesReturn = {

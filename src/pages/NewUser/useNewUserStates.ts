@@ -34,8 +34,27 @@ export const useNewUserStates = (params: TUseNewUserStates): TUseNewUserStatesRe
   useEffect(() => {
     if (!onFormSubmitSuccess) return
 
+    params.notifyProvider.setNotify({
+      title: 'Cadastro',
+      message: 'Contato cadastrado com sucesso.',
+      status: 'success',
+    })
+
     goToHome()
-  }, [goToHome, onFormSubmitSuccess])
+  }, [goToHome, onFormSubmitSuccess, params, params.notifyProvider])
+
+  useEffect(() => {
+    if (!showPostRegistrationError) return
+
+    params.notifyProvider.setNotify({
+      title: 'Cadastro',
+      message: 'Não foi possível cadastrar o novo contato.',
+      status: 'error',
+    })
+
+    params.postClearCalledState()
+    params.postClearErrorState()
+  }, [params, params.notifyProvider, showPostRegistrationError])
 
   return {
     form: {
