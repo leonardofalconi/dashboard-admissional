@@ -19,4 +19,9 @@ export const Button = styled.button<TButtonStyled>`
   background-color: ${({ $background }) => $background};
   color: ${({ $color }) => $color};
   font-size: ${({ $fontSize }) => $fontSize};
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
 `

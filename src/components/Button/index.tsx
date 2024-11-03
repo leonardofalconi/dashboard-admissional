@@ -15,6 +15,7 @@ const Component: FC<IButtonProps> = ({
   padding = '8px 32px',
   className,
   onClick,
+  disabled,
   children,
 }) => (
   <Styled.Button
@@ -29,6 +30,7 @@ const Component: FC<IButtonProps> = ({
     $hasShadow={hasShadow}
     onClick={onClick}
     className={className}
+    disabled={disabled}
   >
     {children}
   </Styled.Button>

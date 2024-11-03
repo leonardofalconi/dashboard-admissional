@@ -12,6 +12,7 @@ export interface IButtonProps {
   padding?: string
   onClick?: () => void
   className?: string
+  disabled?: boolean
   children: ReactNode
 }
 

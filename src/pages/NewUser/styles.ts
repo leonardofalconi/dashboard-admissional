@@ -9,12 +9,16 @@ export const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 16px;
-`
-
-export const Card = styled.div`
   border: 2px solid #f0f0f0;
   width: 500px;
   padding: 48px;
+  display: flex;
+  flex-direction: column;
+  margin: 168px auto 0 auto;
+`
+
+export const Form = styled.form`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -27,4 +31,10 @@ export const Card = styled.div`
 
 export const Button = styled(ButtonDefault)`
   align-self: flex-end;
+`
+
+export const BoxIconButton = styled.div`
+  display: flex;
+  align-self: flex-start;
+  margin-bottom: 10px;
 `
