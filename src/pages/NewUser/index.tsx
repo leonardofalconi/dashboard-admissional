@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import { API } from '~/api'
 import { IconButton } from '~/components/IconButton'
+import { Loading } from '~/components/Loading'
 import { TextField } from '~/components/TextField'
 import { useNotifyContext } from '~/contexts/useNotify'
 import { useRegistrationsContext } from '~/contexts/useRegistrations'
@@ -15,9 +16,7 @@ import { useNewUserStates } from './useNewUserStates'
 
 export const NewUserPage = () => {
   const history = useHistory()
-
   const notifyContext = useNotifyContext()
-
   const registrationContext = useRegistrationsContext()
 
   const usePostRegistrationStates = usePostRegistration({
@@ -63,7 +62,7 @@ export const NewUserPage = () => {
         </Styled.Button>
       </Styled.Form>
 
-      {newUserStates.showPostRegistrationLoading && <p>Loading</p>}
+      {newUserStates.showPostRegistrationLoading && <Loading />}
     </Styled.Container>
   )
 }
