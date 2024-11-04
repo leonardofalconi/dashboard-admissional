@@ -5,3 +5,11 @@ export interface IRegistrationCardProps {
   onActions: (params: { actionType: TContactStatus | 'DELETE'; contact: IContact }) => void
   disabled?: boolean
 }
+
+export type TAlert = {
+  isVisible: boolean
+  title?: string
+  description?: string
+  onCancel?: () => void
+  onConfirm?: () => void
+}
