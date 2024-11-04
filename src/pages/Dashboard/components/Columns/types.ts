@@ -11,7 +11,7 @@ export type TRegistrationColorsMap = { [key in TContactStatus]: { background: st
 
 export interface IColumnsProps {
   registrations?: IContact[]
-  actions: IRegistrationCardProps['onActions']
+  action: IRegistrationCardProps['onActions']
   disabled?: boolean
 }
 

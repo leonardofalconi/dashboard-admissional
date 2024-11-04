@@ -66,7 +66,7 @@ export const DashboardPage = () => {
       <>
         {dashboardStates.showRegistrations && (
           <Collumns
-            actions={params =>
+            action={params =>
               params.actionType === 'DELETE'
                 ? deleteRegistrationStates.removeRegistrationFromApi({ id: params.contact.id })
                 : patchRegistrationStates.updateRegistrationFromApi({
