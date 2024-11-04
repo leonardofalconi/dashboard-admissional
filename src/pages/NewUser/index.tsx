@@ -22,7 +22,7 @@ export const NewUserPage = () => {
   const postRegistrationStates = usePostRegistration({
     registrationsProvider: API.REGISTRATION,
     setRegistrations: registrationContext.setRegistrations,
-    hasRegistrationsCached: Boolean(registrationContext.registrations.length),
+    hasRegistrationsCached: !!registrationContext.registrations.length,
   })
 
   const newUserStates = useNewUserStates({
@@ -30,7 +30,7 @@ export const NewUserPage = () => {
     formSubmitCallback: postRegistrationStates.createRegistrationFromApi,
     postRegistrationCalled: postRegistrationStates.postRegistrationCalled,
     postRegistrationLoading: postRegistrationStates.postRegistrationLoading,
-    hasPostRegistrationError: Boolean(postRegistrationStates.postRegistrationError),
+    hasPostRegistrationError: !!postRegistrationStates.postRegistrationError,
     notifyProvider: notifyContext,
     postClearErrorState: postRegistrationStates.clearErrorState,
     postClearCalledState: postRegistrationStates.clearCalledState,

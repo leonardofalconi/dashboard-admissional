@@ -18,42 +18,22 @@ export const DashboardPage = () => {
   const notifyContext = useNotifyContext()
   const registrationsContext = useRegistrationsContext()
 
-  const getRegistrationsStates = useGetRegistrations({
+  const registrationsStatesParams = {
     registrationsProvider: API.REGISTRATION,
     setRegistrations: registrationsContext.setRegistrations,
-    hasRegistrationsCached: Boolean(registrationsContext.registrations.length),
-  })
+  }
 
-  const patchRegistrationStates = usePatchRegistration({
-    registrationsProvider: API.REGISTRATION,
-    setRegistrations: registrationsContext.setRegistrations,
-  })
-
-  const deleteRegistrationStates = useDeleteRegistration({
-    registrationsProvider: API.REGISTRATION,
-    setRegistrations: registrationsContext.setRegistrations,
-  })
+  const getRegistrationsStates = useGetRegistrations(registrationsStatesParams)
+  const patchRegistrationStates = usePatchRegistration(registrationsStatesParams)
+  const deleteRegistrationStates = useDeleteRegistration(registrationsStatesParams)
 
   const dashboardStates = useDashboardStates({
-    getRegistrationsCalled: getRegistrationsStates.getRegistrationsCalled,
-    patchRegistrationsCalled: patchRegistrationStates.patchRegistrationCalled,
-    deleteRegistrationsCalled: deleteRegistrationStates.deleteRegistrationCalled,
-    hasRegistrations: Boolean(registrationsContext.registrations.length),
-    hasRegistrationsError: Boolean(getRegistrationsStates.registrationsError),
-    hasPatchRegistrationError: Boolean(patchRegistrationStates.patchRegistrationError),
-    hasDeleteRegistrationError: Boolean(deleteRegistrationStates.deleteRegistrationError),
-    registrationsLoading: getRegistrationsStates.registrationsLoading,
-    patchRegistrationLoading: patchRegistrationStates.patchRegistrationLoading,
-    deleteRegistrationLoading: deleteRegistrationStates.deleteRegistrationLoading,
     routerProvider: history,
     notifyProvider: notifyContext,
-    registrationsRefresh: getRegistrationsStates.registrationsRefresh,
-    clearRegistrationsErrorState: getRegistrationsStates.clearErrorState,
-    clearPatchErrorState: patchRegistrationStates.clearErrorState,
-    clearDeleteErrorState: deleteRegistrationStates.clearErrorState,
-    clearRegistrationsCalledState: getRegistrationsStates.clearCalledState,
-    clearPatchCalledState: patchRegistrationStates.clearCalledState,
-    clearDeleteCalledState: deleteRegistrationStates.clearCalledState,
+    getRegistrationsStates,
+    patchRegistrationStates,
+    deleteRegistrationStates,
+    hasRegistrations: !!registrationsContext.registrations.length,
   })
 
   return (
@@ -61,23 +41,22 @@ export const DashboardPage = () => {
       <SearchBar
         onRefreshButtonClick={dashboardStates.onRegistrationsRefreshButtonClick}
         onNewAdmissionButtonClick={dashboardStates.onNewAdmissionButtonClick}
+        search={{ onChange: dashboardStates.onInputSearchChange }}
         disabled={dashboardStates.showRegistrationsLoading}
       />
       <>
-        {dashboardStates.showRegistrations && (
-          <Collumns
-            action={params =>
-              params.actionType === 'DELETE'
-                ? deleteRegistrationStates.removeRegistrationFromApi({ id: params.contact.id })
-                : patchRegistrationStates.updateRegistrationFromApi({
-                    id: params.contact.id,
-                    values: { status: params.actionType },
-                  })
-            }
-            registrations={registrationsContext.registrations}
-            disabled={dashboardStates.showRegistrationsLoading}
-          />
-        )}
+        <Collumns
+          action={params =>
+            params.actionType === 'DELETE'
+              ? deleteRegistrationStates.removeRegistrationFromApi({ id: params.contact.id })
+              : patchRegistrationStates.updateRegistrationFromApi({
+                  id: params.contact.id,
+                  values: { status: params.actionType },
+                })
+          }
+          registrations={registrationsContext.registrations}
+          disabled={dashboardStates.showRegistrationsLoading}
+        />
 
         {dashboardStates.showRegistrationsLoading && <Loading />}
       </>

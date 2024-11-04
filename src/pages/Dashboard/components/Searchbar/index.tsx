@@ -5,12 +5,13 @@ import { Button } from '~/components/Button'
 import { IconButton } from '~/components/IconButton'
 import { TextField } from '~/components/TextField'
 
+// import { formMask } from '~/utils/form'
 import * as Styled from './styles'
 import { ISearchBarProps } from './types'
 
-const Component: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick, disabled }) => (
+const Component: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick, search, disabled }) => (
   <Styled.Container>
-    <TextField disabled={disabled} id="cpf" placeholder="Digite um CPF válido" />
+    <TextField {...search} disabled={disabled} id="search" placeholder="Digite um CPF válido" maxLength={14} />
     <Styled.Actions>
       <IconButton disabled={disabled} onClick={onRefreshButtonClick} aria-label="refetch">
         <HiRefresh />

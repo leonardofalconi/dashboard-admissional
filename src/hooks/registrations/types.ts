@@ -5,20 +5,34 @@ export type TRegistrationsProviders = {
   setRegistrations: React.Dispatch<React.SetStateAction<IContact[]>>
   registrationsProvider: TApi['REGISTRATION']
 }
-export interface IUseGetRegistrationsParams extends TRegistrationsProviders {
-  hasRegistrationsCached: boolean
-}
+export interface IUseGetRegistrationsParams extends TRegistrationsProviders {}
 
 export type TClearStates = {
   clearErrorState: () => void
   clearCalledState: () => void
 }
 
+export type TGetRegistrationsFilteredFromApi = {
+  filters: {
+    [key: string]: string | undefined
+    cpf?: string
+  }
+}
+
+export type TGetRegistrationsFromApi = {
+  search?: string
+}
+
 export type TUseGetRegistrationsReturn = {
   registrationsError?: Error
   registrationsLoading: boolean
+  registrationsFiltering: boolean
   getRegistrationsCalled: boolean
   registrationsRefresh: () => void
+  getRegistrationsFromApi: (params?: TGetRegistrationsFromApi) => void
+  getRegistrationsFilteredFromApi: (params: TGetRegistrationsFilteredFromApi) => void
+  clearFilteringState: () => void
+  resetRegistrations: () => void
 } & TClearStates
 
 export interface IUsePatchRegistrationParams extends TRegistrationsProviders {}

@@ -6,7 +6,7 @@ import { ITextFieldProps } from './types'
 const Component = forwardRef<HTMLInputElement, ITextFieldProps>(({ id, label, error, ...rest }, ref) => (
   <Styled.Container>
     <Styled.Label htmlFor={id}>{label}</Styled.Label>
-    <Styled.Input {...rest} ref={ref} />
+    <Styled.Input id={id} {...rest} ref={ref} />
     <Styled.Error>{error}</Styled.Error>
   </Styled.Container>
 ))

@@ -2,7 +2,8 @@ import { API_END_POINTS } from '~/api/constants'
 import { HTTP_CLIENT } from '~/clients/httpClient'
 import { IContact } from '~/entities/contact'
 
-const GET = () => HTTP_CLIENT.get<IContact[]>(API_END_POINTS.registrations)
+const GET = ({ search }: { search?: string }) =>
+  HTTP_CLIENT.get<IContact[]>(`${API_END_POINTS.registrations}${search ? `?${search}` : ''}`)
 
 const POST = (contact: Omit<IContact, 'id'>) => HTTP_CLIENT.post<IContact>(API_END_POINTS.registrations, contact)
 

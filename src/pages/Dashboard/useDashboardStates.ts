@@ -1,64 +1,100 @@
 import { useCallback, useEffect, useMemo } from 'react'
 
 import { ROUTES } from '~/router/routes'
+import { formMask } from '~/utils/form'
 
-import { IUseDashboardStates, TUseDashboardStates } from './types'
+import { IUseDashboardStates, TOnInputSearchChangeParams, TUseDashboardStates } from './types'
 import { getMessageByAction } from './utils/messages'
 
 export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardStates => {
-  const showRegistrations = useMemo(
-    () =>
-      (params.getRegistrationsCalled && !params.registrationsLoading && !params.hasRegistrationsError) ||
-      params.hasRegistrations,
-    [params.getRegistrationsCalled, params.hasRegistrations, params.hasRegistrationsError, params.registrationsLoading],
-  )
-
   const showRegistrationsLoading = useMemo(
     () =>
-      (params.registrationsLoading && !params.hasRegistrationsError) ||
-      (params.patchRegistrationLoading && !params.hasPatchRegistrationError) ||
-      (params.deleteRegistrationLoading && !params.hasDeleteRegistrationError),
+      (params.getRegistrationsStates.registrationsLoading && !params.getRegistrationsStates.registrationsError) ||
+      (params.patchRegistrationStates.patchRegistrationLoading &&
+        !params.patchRegistrationStates.patchRegistrationError) ||
+      (params.deleteRegistrationStates.deleteRegistrationLoading &&
+        !params.deleteRegistrationStates.deleteRegistrationError),
     [
-      params.registrationsLoading,
-      params.hasRegistrationsError,
-      params.patchRegistrationLoading,
-      params.hasPatchRegistrationError,
-      params.deleteRegistrationLoading,
-      params.hasDeleteRegistrationError,
+      params.deleteRegistrationStates.deleteRegistrationError,
+      params.deleteRegistrationStates.deleteRegistrationLoading,
+      params.getRegistrationsStates.registrationsError,
+      params.getRegistrationsStates.registrationsLoading,
+      params.patchRegistrationStates.patchRegistrationError,
+      params.patchRegistrationStates.patchRegistrationLoading,
     ],
   )
 
   const showRegistrationsError = useMemo(
-    () => params.hasRegistrationsError || params.hasPatchRegistrationError || params.hasDeleteRegistrationError,
-    [params.hasDeleteRegistrationError, params.hasPatchRegistrationError, params.hasRegistrationsError],
+    () =>
+      !!params.getRegistrationsStates.registrationsError ||
+      !!params.patchRegistrationStates.patchRegistrationError ||
+      !!params.deleteRegistrationStates.deleteRegistrationError,
+    [
+      params.deleteRegistrationStates.deleteRegistrationError,
+      params.getRegistrationsStates.registrationsError,
+      params.patchRegistrationStates.patchRegistrationError,
+    ],
   )
 
   const showRegistrationsSuccess = useMemo(
     () =>
       !showRegistrationsError &&
       !showRegistrationsLoading &&
-      (params.patchRegistrationsCalled || params.deleteRegistrationsCalled),
+      (params.patchRegistrationStates.patchRegistrationCalled ||
+        params.deleteRegistrationStates.deleteRegistrationCalled),
     [
-      params.deleteRegistrationsCalled,
-      params.patchRegistrationsCalled,
+      params.deleteRegistrationStates.deleteRegistrationCalled,
+      params.patchRegistrationStates.patchRegistrationCalled,
       showRegistrationsError,
       showRegistrationsLoading,
     ],
   )
 
   const onNewAdmissionButtonClick = useCallback(
-    () => params.routerProvider.push(ROUTES.newUser),
-    [params.routerProvider],
+    () => {
+      if (params.getRegistrationsStates.registrationsFiltering) {
+        params.getRegistrationsStates.resetRegistrations()
+      }
+
+      params.routerProvider.push(ROUTES.newUser)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [params.getRegistrationsStates.registrationsFiltering],
   )
 
   const onRegistrationsRefreshButtonClick = useCallback(() => {
-    params.registrationsRefresh()
+    const inputSearchElement = document.querySelector('input#search') as HTMLInputElement
 
-    params.clearPatchCalledState()
-    params.clearDeleteCalledState()
-  }, [params])
+    inputSearchElement.value = ''
 
-  useEffect(() => {
+    params.getRegistrationsStates.registrationsRefresh()
+
+    params.patchRegistrationStates.clearCalledState()
+    params.deleteRegistrationStates.clearCalledState
+    params.getRegistrationsStates.clearFilteringState()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const onHookInit = useCallback(() => {
+    if (params.hasRegistrations || params.getRegistrationsStates.registrationsFiltering) return
+
+    params.getRegistrationsStates.getRegistrationsFromApi()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.hasRegistrations, params.getRegistrationsStates.registrationsFiltering])
+
+  const onInputSearchChange = (e: TOnInputSearchChangeParams) => {
+    e.currentTarget.value = formMask.cpf({ value: e.currentTarget.value })
+
+    if (e.currentTarget.value.length < 14) return
+
+    e.currentTarget.blur()
+
+    params.getRegistrationsStates.getRegistrationsFilteredFromApi({ filters: { cpf: e.currentTarget.value } })
+  }
+
+  const dispatchNotification = useCallback(() => {
     if (!showRegistrationsError && !showRegistrationsSuccess) return
 
     const title = 'Registros'
@@ -68,27 +104,32 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
       type: status,
       action: {
         get: {
-          hasError: params.hasRegistrationsError,
-          hasSuccess: !params.hasRegistrationsError && params.getRegistrationsCalled,
+          hasError: !!params.getRegistrationsStates.registrationsError,
+          hasSuccess:
+            !params.getRegistrationsStates.registrationsError && params.getRegistrationsStates.getRegistrationsCalled,
           callback: () => {
-            params.clearRegistrationsErrorState()
-            params.clearRegistrationsCalledState()
+            params.getRegistrationsStates.clearErrorState()
+            params.getRegistrationsStates.clearCalledState
           },
         },
         patch: {
-          hasError: params.hasPatchRegistrationError,
-          hasSuccess: !params.hasPatchRegistrationError && params.patchRegistrationsCalled,
+          hasError: !!params.patchRegistrationStates.patchRegistrationError,
+          hasSuccess:
+            !params.patchRegistrationStates.patchRegistrationError &&
+            params.patchRegistrationStates.patchRegistrationCalled,
           callback: () => {
-            params.clearPatchErrorState()
-            params.clearPatchCalledState()
+            params.patchRegistrationStates.clearErrorState()
+            params.patchRegistrationStates.clearCalledState()
           },
         },
         delete: {
-          hasError: params.hasDeleteRegistrationError,
-          hasSuccess: !params.hasPatchRegistrationError && params.deleteRegistrationsCalled,
+          hasError: !!params.deleteRegistrationStates.deleteRegistrationError,
+          hasSuccess:
+            !params.deleteRegistrationStates.deleteRegistrationError &&
+            params.deleteRegistrationStates.deleteRegistrationCalled,
           callback: () => {
-            params.clearDeleteErrorState()
-            params.clearDeleteCalledState()
+            params.deleteRegistrationStates.clearErrorState()
+            params.deleteRegistrationStates.clearCalledState()
           },
         },
       },
@@ -99,13 +140,28 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
     if (!callback) return
 
     callback()
-  }, [params, showRegistrationsError, showRegistrationsSuccess])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    params.getRegistrationsStates.registrationsError,
+    params.getRegistrationsStates.getRegistrationsCalled,
+    params.patchRegistrationStates.patchRegistrationError,
+    params.patchRegistrationStates.patchRegistrationCalled,
+    params.deleteRegistrationStates.deleteRegistrationError,
+    params.deleteRegistrationStates.deleteRegistrationCalled,
+    showRegistrationsError,
+    showRegistrationsSuccess,
+  ])
+
+  useEffect(dispatchNotification, [dispatchNotification])
+
+  useEffect(onHookInit, [onHookInit])
 
   return {
-    showRegistrations,
     showRegistrationsLoading,
     showRegistrationsError,
     onNewAdmissionButtonClick,
     onRegistrationsRefreshButtonClick,
+    onInputSearchChange,
   }
 }
