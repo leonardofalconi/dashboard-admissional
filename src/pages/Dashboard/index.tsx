@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom'
 
 import { API } from '~/api'
 import { Loading } from '~/components/Loading'
+import { useNotifyContext } from '~/contexts/useNotify'
 import { useRegistrationsContext } from '~/contexts/useRegistrations'
 import { useDeleteRegistration } from '~/hooks/registrations/useDeleteRegistration'
 import { usePatchRegistration } from '~/hooks/registrations/usePatchRegistration'
@@ -14,7 +15,7 @@ import { useDashboardStates } from './useDashboardStates'
 
 export const DashboardPage = () => {
   const history = useHistory()
-
+  const notifyContext = useNotifyContext()
   const registrationsContext = useRegistrationsContext()
 
   const getRegistrationsStates = useGetRegistrations({
@@ -35,6 +36,8 @@ export const DashboardPage = () => {
 
   const dashboardStates = useDashboardStates({
     getRegistrationsCalled: getRegistrationsStates.getRegistrationsCalled,
+    patchRegistrationsCalled: patchRegistrationStates.patchRegistrationCalled,
+    deleteRegistrationsCalled: deleteRegistrationStates.deleteRegistrationCalled,
     hasRegistrations: Boolean(registrationsContext.registrations.length),
     hasRegistrationsError: Boolean(getRegistrationsStates.registrationsError),
     hasPatchRegistrationError: Boolean(patchRegistrationStates.patchRegistrationError),
@@ -43,12 +46,20 @@ export const DashboardPage = () => {
     patchRegistrationLoading: patchRegistrationStates.patchRegistrationLoading,
     deleteRegistrationLoading: deleteRegistrationStates.deleteRegistrationLoading,
     routerProvider: history,
+    notifyProvider: notifyContext,
+    registrationsRefresh: getRegistrationsStates.registrationsRefresh,
+    clearRegistrationsErrorState: getRegistrationsStates.clearErrorState,
+    clearPatchErrorState: patchRegistrationStates.clearErrorState,
+    clearDeleteErrorState: deleteRegistrationStates.clearErrorState,
+    clearRegistrationsCalledState: getRegistrationsStates.clearCalledState,
+    clearPatchCalledState: patchRegistrationStates.clearCalledState,
+    clearDeleteCalledState: deleteRegistrationStates.clearCalledState,
   })
 
   return (
     <Styled.Container>
       <SearchBar
-        onRefreshButtonClick={getRegistrationsStates.registrationsRefresh}
+        onRefreshButtonClick={dashboardStates.onRegistrationsRefreshButtonClick}
         onNewAdmissionButtonClick={dashboardStates.onNewAdmissionButtonClick}
         disabled={dashboardStates.showRegistrationsLoading}
       />
@@ -67,8 +78,6 @@ export const DashboardPage = () => {
             disabled={dashboardStates.showRegistrationsLoading}
           />
         )}
-
-        {dashboardStates.showRegistrationsError && <p>Error</p>}
 
         {dashboardStates.showRegistrationsLoading && <Loading />}
       </>

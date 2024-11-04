@@ -39,10 +39,16 @@ export const useGetRegistrations = ({
     getRegistrationsFromApi()
   }, [getRegistrationsFromApi, hasRegistrationsCached])
 
+  const clearErrorState = useCallback(() => setError(undefined), [])
+
+  const clearCalledState = useCallback(() => setCalled(false), [])
+
   return {
     registrationsError: error,
     registrationsLoading: loading,
     getRegistrationsCalled: called,
     registrationsRefresh,
+    clearErrorState,
+    clearCalledState,
   }
 }

@@ -35,10 +35,16 @@ export const usePatchRegistration = ({
     [registrationsProvider, setRegistrations],
   )
 
+  const clearErrorState = useCallback(() => setError(undefined), [])
+
+  const clearCalledState = useCallback(() => setCalled(false), [])
+
   return {
     patchRegistrationError: error,
     patchRegistrationLoading: loading,
     patchRegistrationCalled: called,
     updateRegistrationFromApi,
+    clearErrorState,
+    clearCalledState,
   }
 }

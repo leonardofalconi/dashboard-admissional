@@ -33,10 +33,16 @@ export const useDeleteRegistration = ({
     [registrationsProvider, setRegistrations],
   )
 
+  const clearErrorState = useCallback(() => setError(undefined), [])
+
+  const clearCalledState = useCallback(() => setCalled(false), [])
+
   return {
     deleteRegistrationError: error,
     deleteRegistrationLoading: loading,
     deleteRegistrationCalled: called,
     removeRegistrationFromApi,
+    clearErrorState,
+    clearCalledState,
   }
 }
