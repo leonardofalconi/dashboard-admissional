@@ -22,30 +22,35 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
       <span>{contact.admissionDate}</span>
     </Styled.IconAndText>
     <Styled.Actions>
-      <SmallButton
-        onClick={() => onActions({ actionType: 'REPROVED', contact })}
-        backgroundColor="#ff919a"
-        textColor="#000000"
-        disabled={disabled}
-      >
-        Reprovar
-      </SmallButton>
-      <SmallButton
-        onClick={() => onActions({ actionType: 'APPROVED', contact })}
-        backgroundColor="#9be59b"
-        textColor="#000000"
-        disabled={disabled}
-      >
-        Aprovar
-      </SmallButton>
-      <SmallButton
-        onClick={() => onActions({ actionType: 'REVIEW', contact })}
-        backgroundColor="#ff8858"
-        textColor="#000000"
-        disabled={disabled}
-      >
-        Revisar novamente
-      </SmallButton>
+      {contact.status === 'REVIEW' ? (
+        <>
+          <SmallButton
+            onClick={() => onActions({ actionType: 'REPROVED', contact })}
+            backgroundColor="#ff919a"
+            textColor="#000000"
+            disabled={disabled}
+          >
+            Reprovar
+          </SmallButton>
+          <SmallButton
+            onClick={() => onActions({ actionType: 'APPROVED', contact })}
+            backgroundColor="#9be59b"
+            textColor="#000000"
+            disabled={disabled}
+          >
+            Aprovar
+          </SmallButton>
+        </>
+      ) : (
+        <SmallButton
+          onClick={() => onActions({ actionType: 'REVIEW', contact })}
+          backgroundColor="#ff8858"
+          textColor="#000000"
+          disabled={disabled}
+        >
+          Revisar novamente
+        </SmallButton>
+      )}
 
       <IconButton
         disabled={disabled}
