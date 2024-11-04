@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { HiRefresh } from 'react-icons/hi'
 
 import { Button } from '~/components/Button'
@@ -8,7 +8,7 @@ import { TextField } from '~/components/TextField'
 import * as Styled from './styles'
 import { ISearchBarProps } from './types'
 
-export const SearchBar: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick, disabled }) => (
+const Component: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick, disabled }) => (
   <Styled.Container>
     <TextField disabled={disabled} id="cpf" placeholder="Digite um CPF válido" />
     <Styled.Actions>
@@ -21,3 +21,5 @@ export const SearchBar: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmi
     </Styled.Actions>
   </Styled.Container>
 )
+
+export const SearchBar = memo(Component)

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { HiOutlineCalendar, HiOutlineMail, HiOutlineTrash, HiOutlineUser } from 'react-icons/hi'
 
 import { IconButton } from '~/components/IconButton'
@@ -7,7 +7,7 @@ import { SmallButton } from '~/components/SmallButton'
 import * as Styled from './styles'
 import { IRegistrationCardProps } from './types'
 
-export const RegistrationCard: FC<IRegistrationCardProps> = ({ contact, onActions, disabled }) => (
+const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled }) => (
   <Styled.Card>
     <Styled.IconAndText>
       <HiOutlineUser />
@@ -59,3 +59,5 @@ export const RegistrationCard: FC<IRegistrationCardProps> = ({ contact, onAction
     </Styled.Actions>
   </Styled.Card>
 )
+
+export const RegistrationCard = memo(Component)

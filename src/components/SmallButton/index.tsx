@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Button } from '~/components/Button'
 
 import { IButtonSmall } from './types'
 
-export const SmallButton: FC<IButtonSmall> = ({ backgroundColor, textColor, onClick, children, disabled }) => (
+const Component: FC<IButtonSmall> = ({ backgroundColor, textColor, onClick, children, disabled }) => (
   <Button
     height="auto"
     fontSize="12px"
@@ -19,3 +19,5 @@ export const SmallButton: FC<IButtonSmall> = ({ backgroundColor, textColor, onCl
     {children}
   </Button>
 )
+
+export const SmallButton = memo(Component)

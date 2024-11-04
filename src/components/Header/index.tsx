@@ -1,5 +1,7 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, memo } from 'react'
 
 import * as Styled from './styles'
 
-export const Header: FC<{ children: ReactNode }> = ({ children }) => <Styled.Header>{children}</Styled.Header>
+const Component: FC<{ children: ReactNode }> = ({ children }) => <Styled.Header>{children}</Styled.Header>
+
+export const Header = memo(Component)

@@ -1,8 +1,8 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { IIcon } from './types'
 
-export const IconLoading: FC<IIcon> = ({ width, height, color }) => (
+const Component: FC<IIcon> = ({ width, height, color }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 105 105" fill={color}>
     <circle cx="12.5" cy="12.5" r="12.5">
       <animate
@@ -96,3 +96,5 @@ export const IconLoading: FC<IIcon> = ({ width, height, color }) => (
     </circle>
   </svg>
 )
+
+export const IconLoading = memo(Component)

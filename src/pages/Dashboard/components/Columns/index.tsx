@@ -1,11 +1,11 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import * as Styled from './styles'
 import { RegistrationCard } from '../RegistrationCard'
 import { ALL_COLUMNS } from './constants'
 import { IColumnsProps } from './types'
 
-export const Collumns: FC<IColumnsProps> = ({ registrations, action, disabled }) => (
+const Component: FC<IColumnsProps> = ({ registrations, action, disabled }) => (
   <Styled.Container>
     {ALL_COLUMNS.map(collum => {
       return (
@@ -26,3 +26,5 @@ export const Collumns: FC<IColumnsProps> = ({ registrations, action, disabled })
     })}
   </Styled.Container>
 )
+
+export const Collumns = memo(Component)
