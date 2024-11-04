@@ -4,7 +4,7 @@ import { Button } from '~/components/Button'
 
 import { IButtonSmall } from './types'
 
-export const SmallButton: FC<IButtonSmall> = ({ backgroundColor, textColor, onClick, children }) => (
+export const SmallButton: FC<IButtonSmall> = ({ backgroundColor, textColor, onClick, children, disabled }) => (
   <Button
     height="auto"
     fontSize="12px"
@@ -14,6 +14,7 @@ export const SmallButton: FC<IButtonSmall> = ({ backgroundColor, textColor, onCl
     backgroundColor={backgroundColor}
     hasShadow={false}
     onClick={onClick}
+    disabled={disabled}
   >
     {children}
   </Button>

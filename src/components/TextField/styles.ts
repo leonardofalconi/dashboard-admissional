@@ -25,9 +25,14 @@ export const Input = styled.input`
   line-height: 18px;
   font-weight: normal;
   border-radius: 8px;
-  :focus {
+
+  &:focus {
     outline: none;
     border: 1px solid #007c89;
     box-shadow: inset 0 0 0 1px #007c89;
+  }
+
+  &:disabled {
+    opacity: 0.3;
   }
 `

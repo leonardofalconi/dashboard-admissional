@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
-export const IconButton = styled.button`
+import { TIconButtonStyled } from './types'
+
+export const IconButton = styled.button<TIconButtonStyled>`
   cursor: pointer;
-  border: 2px solid #64a98c;
+  border: 2px solid ${({ $borderColor }) => $borderColor};
   width: fit-content;
   padding: 4px;
   border-radius: 24px;
@@ -12,6 +14,15 @@ export const IconButton = styled.button`
   background-color: transparent;
 
   svg {
-    color: #64a98c;
+    color: ${({ $color }) => $color};
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+
+    svg {
+      cursor: default;
+    }
   }
 `

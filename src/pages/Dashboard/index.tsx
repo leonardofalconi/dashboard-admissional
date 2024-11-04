@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom'
 
 import { API } from '~/api'
+import { Loading } from '~/components/Loading'
 import { useRegistrationsContext } from '~/contexts/useRegistrations'
 import { useDeleteRegistration } from '~/hooks/registrations/useDeleteRegistration'
 import { usePatchRegistration } from '~/hooks/registrations/usePatchRegistration'
@@ -49,6 +50,7 @@ export const DashboardPage = () => {
       <SearchBar
         onRefreshButtonClick={getRegistrationsStates.registrationsRefresh}
         onNewAdmissionButtonClick={dashboardStates.onNewAdmissionButtonClick}
+        disabled={dashboardStates.showRegistrationsLoading}
       />
       <>
         {dashboardStates.showRegistrations && (
@@ -62,12 +64,13 @@ export const DashboardPage = () => {
                   })
             }
             registrations={registrationsContext.registrations}
+            disabled={dashboardStates.showRegistrationsLoading}
           />
         )}
 
         {dashboardStates.showRegistrationsError && <p>Error</p>}
 
-        {dashboardStates.showRegistrationsLoading && <p>Loading</p>}
+        {dashboardStates.showRegistrationsLoading && <Loading />}
       </>
     </Styled.Container>
   )

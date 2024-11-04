@@ -5,4 +5,5 @@ export interface IButtonSmall {
   textColor: string
   onClick: () => void
   children: ReactNode
+  disabled?: boolean
 }

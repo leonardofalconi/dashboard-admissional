@@ -28,7 +28,7 @@ const Component: FC<IButtonProps> = ({
     $color={textColor}
     $fontSize={fontSize}
     $hasShadow={hasShadow}
-    onClick={onClick}
+    onClick={!disabled ? onClick : undefined}
     className={className}
     disabled={disabled}
   >

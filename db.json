@@ -6,31 +6,7 @@
       "email": "leonardo.falconii@gmail.com",
       "cpf": "408.211.728-83",
       "admissionDate": "2024-11-14",
-      "status": "REVIEW"
-    },
-    {
-      "id": "8302",
-      "employeeName": "Leonardo Falconi",
-      "email": "dev@doris.mobi",
-      "cpf": "213.213.123-23",
-      "admissionDate": "2024-11-09",
-      "status": "REVIEW"
-    },
-    {
-      "id": "87de",
-      "employeeName": "Leonardo Falconi",
-      "email": "lfalconi@doris.mobi",
-      "cpf": "408.211.728-83",
-      "admissionDate": "2024-11-07",
-      "status": "REVIEW"
-    },
-    {
-      "id": "8f5a",
-      "employeeName": "Leonardo Falconi",
-      "email": "leonardo.falconii@gmail.com",
-      "cpf": "408.211.728-83",
-      "admissionDate": "2024-11-07",
-      "status": "REVIEW"
+      "status": "REPROVED"
     },
     {
       "id": "4f35",
@@ -38,7 +14,7 @@
       "email": "leonardo.falconii@gmail.com",
       "cpf": "408.211.728-83",
       "admissionDate": "2024-11-14",
-      "status": "REVIEW"
+      "status": "APPROVED"
     },
     {
       "id": "f241",

@@ -5,7 +5,7 @@ import { RegistrationCard } from '../RegistrationCard'
 import { ALL_COLUMNS } from './constants'
 import { IColumnsProps } from './types'
 
-export const Collumns: FC<IColumnsProps> = ({ registrations, actions }) => (
+export const Collumns: FC<IColumnsProps> = ({ registrations, actions, disabled }) => (
   <Styled.Container>
     {ALL_COLUMNS.map(collum => {
       return (
@@ -16,7 +16,7 @@ export const Collumns: FC<IColumnsProps> = ({ registrations, actions }) => (
               {registrations?.map(
                 contact =>
                   contact.status === collum.status && (
-                    <RegistrationCard onActions={actions} contact={contact} key={contact.id} />
+                    <RegistrationCard disabled={disabled} onActions={actions} contact={contact} key={contact.id} />
                   ),
               )}
             </Styled.CollumContent>

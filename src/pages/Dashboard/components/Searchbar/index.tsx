@@ -8,14 +8,16 @@ import { TextField } from '~/components/TextField'
 import * as Styled from './styles'
 import { ISearchBarProps } from './types'
 
-export const SearchBar: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick }) => (
+export const SearchBar: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick, disabled }) => (
   <Styled.Container>
-    <TextField id="cpf" placeholder="Digite um CPF válido" />
+    <TextField disabled={disabled} id="cpf" placeholder="Digite um CPF válido" />
     <Styled.Actions>
-      <IconButton onClick={onRefreshButtonClick} aria-label="refetch">
+      <IconButton disabled={disabled} onClick={onRefreshButtonClick} aria-label="refetch">
         <HiRefresh />
       </IconButton>
-      <Button onClick={onNewAdmissionButtonClick}>Nova Admissão</Button>
+      <Button disabled={disabled} onClick={onNewAdmissionButtonClick}>
+        Nova Admissão
+      </Button>
     </Styled.Actions>
   </Styled.Container>
 )
