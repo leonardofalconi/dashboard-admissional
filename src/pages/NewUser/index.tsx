@@ -19,7 +19,7 @@ export const NewUserPage = () => {
   const notifyContext = useNotifyContext()
   const registrationContext = useRegistrationsContext()
 
-  const usePostRegistrationStates = usePostRegistration({
+  const postRegistrationStates = usePostRegistration({
     registrationsProvider: API.REGISTRATION,
     setRegistrations: registrationContext.setRegistrations,
     hasRegistrationsCached: Boolean(registrationContext.registrations.length),
@@ -27,13 +27,13 @@ export const NewUserPage = () => {
 
   const newUserStates = useNewUserStates({
     routerProvider: history,
-    formSubmitCallback: usePostRegistrationStates.createRegistrationFromApi,
-    postRegistrationCalled: usePostRegistrationStates.postRegistrationCalled,
-    postRegistrationLoading: usePostRegistrationStates.postRegistrationLoading,
-    hasPostRegistrationError: Boolean(usePostRegistrationStates.postRegistrationError),
+    formSubmitCallback: postRegistrationStates.createRegistrationFromApi,
+    postRegistrationCalled: postRegistrationStates.postRegistrationCalled,
+    postRegistrationLoading: postRegistrationStates.postRegistrationLoading,
+    hasPostRegistrationError: Boolean(postRegistrationStates.postRegistrationError),
     notifyProvider: notifyContext,
-    postClearErrorState: usePostRegistrationStates.clearErrorState,
-    postClearCalledState: usePostRegistrationStates.clearCalledState,
+    postClearErrorState: postRegistrationStates.clearErrorState,
+    postClearCalledState: postRegistrationStates.clearCalledState,
   })
 
   return (
