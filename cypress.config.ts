@@ -12,7 +12,7 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: 'http://localhost:3001',
-    specPattern: 'cypress/tests/**/*spec.{ts,tsx}',
+    specPattern: 'cypress/tests/**/*cy.{ts,tsx}',
     experimentalRunAllSpecs: true,
     supportFile: false,
   },
