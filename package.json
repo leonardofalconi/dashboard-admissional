@@ -10,7 +10,7 @@
     "test:dev": "jest --watch --verbose --no-cache",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview &",
+    "preview": "vite preview --port 3001 &",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "cypress:cli": "yarn build && yarn init:db && yarn preview",
     "cypress": "yarn cypress:cli && cypress run",
