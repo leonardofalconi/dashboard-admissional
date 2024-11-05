@@ -100,6 +100,8 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
     const title = 'Registros'
     const status = showRegistrationsError ? 'error' : 'success'
 
+    console.log()
+
     const { message, callback } = getMessageByAction({
       type: status,
       action: {
@@ -109,7 +111,7 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
             !params.getRegistrationsStates.registrationsError && params.getRegistrationsStates.getRegistrationsCalled,
           callback: () => {
             params.getRegistrationsStates.clearErrorState()
-            params.getRegistrationsStates.clearCalledState
+            params.getRegistrationsStates.clearCalledState()
           },
         },
         patch: {
