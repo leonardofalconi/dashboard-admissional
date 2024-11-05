@@ -35,9 +35,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies
-        run: yarn
-
       - name: Run Prettier Check
         run: yarn format
 
