@@ -14,7 +14,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "cypress:cli": "yarn build && yarn init:db && yarn preview",
     "cypress": "yarn cypress:cli && cypress run",
-    "cypress:open": "yarn init:db && yarn dev && cypress open --e2e"
+    "cypress:open": "yarn init:db && yarn dev && cypress open --e2e",
+    "prepare": "husky"
   },
   "dependencies": {
     "axios": "^1.7.2",
@@ -49,6 +50,7 @@
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "husky": "^9.1.6",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "prettier": "^3.3.3",
