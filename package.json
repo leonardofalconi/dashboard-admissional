@@ -17,7 +17,7 @@
     "cypress:open": "yarn init:db && yarn dev && cypress open --e2e",
     "cypress:ci:db": "json-server db.json &",
     "cypress:ci:server": "yarn preview &",
-    "cypress:ci": "yarn cypress:ci:db && cypress:ci:server && cypress run",
+    "cypress:ci": "yarn cypress:ci:db && yarn cypress:ci:server && yarn cypress run",
     "prepare": "husky"
   },
   "dependencies": {
