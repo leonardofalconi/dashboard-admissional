@@ -6,11 +6,11 @@ import { IAlertProps } from './types'
 
 const Component: FC<IAlertProps> = ({ onCancel, onConfirm, title, children }) => {
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="test-alert">
       <Styled.Content>
         <Styled.Title>{title}</Styled.Title>
         <Styled.Description>{children}</Styled.Description>
-        <Styled.BoxActions>
+        <Styled.BoxActions data-testid="test-alert-actions">
           <Button width="100px" height="40px" fontSize="15px" backgroundColor="#e80537" onClick={onCancel}>
             Cancelar
           </Button>

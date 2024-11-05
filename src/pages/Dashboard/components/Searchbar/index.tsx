@@ -10,7 +10,7 @@ import * as Styled from './styles'
 import { ISearchBarProps } from './types'
 
 const Component: FC<ISearchBarProps> = ({ onRefreshButtonClick, onNewAdmissionButtonClick, search, disabled }) => (
-  <Styled.Container>
+  <Styled.Container data-testid="test-search-bar">
     <TextField {...search} disabled={disabled} id="search" placeholder="Digite um CPF válido" maxLength={14} />
     <Styled.Actions>
       <IconButton disabled={disabled} onClick={onRefreshButtonClick} aria-label="refetch">

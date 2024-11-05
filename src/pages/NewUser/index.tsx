@@ -43,7 +43,10 @@ export const NewUserPage = () => {
           <HiOutlineArrowLeft size={24} />
         </IconButton>
       </Styled.BoxIconButton>
-      <Styled.Form onSubmit={!newUserStates.showPostRegistrationLoading ? newUserStates.form.onSubmit : undefined}>
+      <Styled.Form
+        data-testid="test-new-user-form"
+        onSubmit={!newUserStates.showPostRegistrationLoading ? newUserStates.form.onSubmit : undefined}
+      >
         {FORM_FIELDS.map(({ required, pattern, messages, maxLength, mask, ...field }) => (
           <TextField
             key={field.id}

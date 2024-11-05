@@ -19,6 +19,7 @@ const Component: FC<IButtonProps> = ({
   children,
 }) => (
   <Styled.Button
+    data-testid="test-button"
     $width={width}
     $height={height}
     $padding={padding}

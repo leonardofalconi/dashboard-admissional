@@ -6,6 +6,7 @@ import { IButtonSmall } from './types'
 
 const Component: FC<IButtonSmall> = ({ backgroundColor, textColor, onClick, children, disabled }) => (
   <Button
+    data-testid="test-button-small"
     height="auto"
     fontSize="12px"
     borderRadius="4px"

@@ -37,7 +37,7 @@ export const DashboardPage = () => {
   })
 
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="test-dashboard-page">
       <SearchBar
         onRefreshButtonClick={dashboardStates.onRegistrationsRefreshButtonClick}
         onNewAdmissionButtonClick={dashboardStates.onNewAdmissionButtonClick}

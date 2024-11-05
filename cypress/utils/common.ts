@@ -1,17 +1,47 @@
-export const checkElementInTheDocument = (selector: string, visible: boolean) => {
-  const action = (acc = 0) => {
-    if (acc === 30) return
+import { MOCK_REGISTRATIONS_CARD_ACTIONS_BUTTON_MAP } from '../constants/registrations'
+import { TCreateNewContactParams } from '../types/contacts'
+import { alertAction } from './alert'
 
-    cy.wait(500)
+export const clearMockedContactsFromRegistrationsDbTable = ({ contacts }: { contacts: TCreateNewContactParams[] }) => {
+  let currentIndex: number
+  let registrationsCard: NodeListOf<Element>
 
-    cy.window().then(window => {
-      const elem = window.document.querySelector(selector)
+  const deleteCard = () => {
+    if (currentIndex === -1 || !registrationsCard?.length) return
 
-      if ((!visible && !elem) || (visible && elem)) return
+    const card = registrationsCard[currentIndex]
+    const contact = contacts.find(contact => contact.name !== card.getAttribute('data-test-employee-name'))
 
-      action(acc + 1)
+    if (!contact) {
+      currentIndex--
+
+      deleteCard()
+
+      return
+    }
+
+    const deleteButton = card.querySelector(MOCK_REGISTRATIONS_CARD_ACTIONS_BUTTON_MAP.delete) as HTMLButtonElement
+
+    deleteButton.click()
+
+    alertAction({ action: 'confirm' })
+
+    cy.wait(1000).then(() => {
+      currentIndex--
+
+      deleteCard()
     })
   }
 
-  action()
+  cy.get(`[data-testid="test-dashboard-page"]`).then(elementDom => {
+    const dashboard = elementDom[0]
+
+    registrationsCard = dashboard.querySelectorAll('[data-testid="test-registration-card"]')
+
+    if (!registrationsCard.length) return
+
+    currentIndex = registrationsCard.length - 1
+
+    deleteCard()
+  })
 }

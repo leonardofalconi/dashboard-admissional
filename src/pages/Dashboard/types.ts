@@ -7,11 +7,11 @@ import {
 
 export type TNotifyParams = { title: string; message: string; status: 'success' | 'error' }
 
-export type TNotifyErrorType = 'registrations' | 'update' | 'delete'
+export type TNotifyMessageType = 'registrations' | 'update' | 'delete'
 
-export type TNotifyErrorMessage = { [key in TNotifyErrorType]: { message: string } }
+export type TNotifyErrorMessage = { [key in TNotifyMessageType]: { message: string } }
 
-export type TNotifySuccessMessage = { [key in TNotifyErrorType]: { message: string } }
+export type TNotifySuccessMessage = { [key in TNotifyMessageType]: { message: string } }
 
 export type TOnInputSearchChangeParams = React.ChangeEvent<HTMLInputElement>
 

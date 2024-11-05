@@ -7,15 +7,19 @@ import { IColumnsProps } from './types'
 
 const Component: FC<IColumnsProps> = ({ registrations, action, disabled }) => (
   <Styled.Container>
-    {ALL_COLUMNS.map(collum => {
+    {ALL_COLUMNS.map(column => {
       return (
-        <Styled.Column $status={collum.status} key={collum.title}>
+        <Styled.Column
+          data-testid={`test-column-${column.status.toLowerCase()}`}
+          $status={column.status}
+          key={column.title}
+        >
           <>
-            <Styled.TitleColumn $status={collum.status}>{collum.title}</Styled.TitleColumn>
+            <Styled.TitleColumn $status={column.status}>{column.title}</Styled.TitleColumn>
             <Styled.CollumContent>
               {registrations?.map(
                 contact =>
-                  contact.status === collum.status && (
+                  contact.status === column.status && (
                     <RegistrationCard disabled={disabled} onActions={action} contact={contact} key={contact.id} />
                   ),
               )}

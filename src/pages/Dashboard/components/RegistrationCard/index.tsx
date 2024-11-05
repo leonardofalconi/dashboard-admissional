@@ -16,7 +16,7 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
 
   return (
     <>
-      <Styled.Card>
+      <Styled.Card data-testid="test-registration-card" data-test-employee-name={contact.employeeName}>
         <Styled.IconAndText>
           <HiOutlineUser />
           <h3>{contact.employeeName}</h3>
@@ -29,7 +29,7 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
           <HiOutlineCalendar />
           <span>{contact.admissionDate}</span>
         </Styled.IconAndText>
-        <Styled.Actions>
+        <Styled.Actions data-testid="test-registration-card-actions">
           {contact.status === 'REVIEW' ? (
             <>
               <SmallButton

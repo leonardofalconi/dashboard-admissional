@@ -100,8 +100,6 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
     const title = 'Registros'
     const status = showRegistrationsError ? 'error' : 'success'
 
-    console.log()
-
     const { message, callback } = getMessageByAction({
       type: status,
       action: {
