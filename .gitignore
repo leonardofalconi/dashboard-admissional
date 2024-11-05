@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .eslintcache
+
+# testing
+/coverage
+/cypress/screenshots
+/cypress/downloads
