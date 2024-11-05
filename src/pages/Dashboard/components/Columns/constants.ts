@@ -1,6 +1,6 @@
-import { TCOLUMN, TRegistrationColorsMap } from './types'
+import { TColumn, TRegistrationColorsMap } from './types'
 
-export const ALL_COLUMNS: TCOLUMN[] = [
+export const ALL_COLUMNS: TColumn[] = [
   { status: 'REVIEW', title: 'Pronto para revisar' },
   { status: 'APPROVED', title: 'Aprovado' },
   { status: 'REPROVED', title: 'Reprovado' },

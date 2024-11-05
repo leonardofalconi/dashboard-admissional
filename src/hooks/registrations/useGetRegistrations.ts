@@ -45,7 +45,7 @@ export const useGetRegistrations = ({
 
       const browserQuery = new URLSearchParams()
 
-      Object.keys(params.filters).forEach(key => params.filters[key] && browserQuery.set(key, params.filters[key]))
+      Object.keys(params.filters).forEach(key => params.filters[key] && browserQuery.set(key, params.filters[key]!))
 
       const search = browserQuery.toString()
 
