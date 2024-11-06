@@ -26,9 +26,9 @@ export const Container = styled.div<TNotifyContainerStyled>`
 `
 
 export const Title = styled.p`
-  font-size: 18px;
+  font-size: 0.78rem;
 `
 
 export const Message = styled.p`
-  font-size: 14px;
+  font-size: 0.6rem;
 `
