@@ -362,9 +362,66 @@ describe('Integration - Dashboard', () => {
 
       expect(cards.length).toBe(1)
     })
+
+    test('cancel an interaction', async () => {
+      spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
+
+      render(<MockDashboardPage />)
+
+      const columnReviewElement = screen.getByTestId('test-column-review')
+
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(1)
+
+      await waitFor(() => {
+        const cardReviewElement = columnReviewElement.querySelector('[data-testid="test-registration-card"]')
+        const cardReviewDeleteButtonElement = cardReviewElement?.querySelector(
+          '[data-testid="test-icon-button"]',
+        ) as HTMLButtonElement
+
+        expect(cardReviewElement).toBeInTheDocument()
+
+        fireEvent.click(cardReviewDeleteButtonElement)
+      })
+
+      const alertElement = screen.getByTestId('test-alert')
+      const alertTitleElement = screen.getByTestId('test-alert-title')
+      const alertDescriptionElement = screen.getByTestId('test-alert-description')
+      const alertCancelButtonElement = screen
+        .getByTestId('test-alert-actions')
+        .querySelectorAll('[data-testid="test-button"]')[0] as HTMLButtonElement
+
+      expect(alertElement).toBeInTheDocument()
+      expect(alertTitleElement).toHaveTextContent('Contato')
+      expect(alertDescriptionElement).toHaveTextContent(
+        `Tem certeza que deseja deletar o(a) ${MOCK_CONTACTS[0].employeeName}?`,
+      )
+
+      act(() => {
+        fireEvent.click(alertCancelButtonElement)
+      })
+
+      expect(spyOnHttpClientDelete).not.toHaveBeenCalled()
+
+      expect(alertElement).not.toBeInTheDocument()
+    })
   })
 
   describe('Errors cases', () => {
+    test('should render with error', async () => {
+      const mockError = new Error('An error occurred')
+      spyOnHttpClient.mockRejectedValue(mockError)
+
+      render(<MockDashboardPage />)
+
+      await waitFor(() => {
+        const notifyMessageElement = screen.getByTestId('test-notify-message')
+
+        expect(notifyMessageElement).toHaveTextContent('Não foi possível carregar os contatos.')
+        expect(spyOnConsoleError).toHaveBeenCalledTimes(1)
+        expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
+      })
+    })
+
     test('Approve a contact', async () => {
       const mockError = new Error('An error occurred')
 
@@ -601,36 +658,36 @@ describe('Integration - Dashboard', () => {
       expect(spyOnConsoleError).toHaveBeenCalledTimes(1)
       expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
     })
-  })
 
-  test('search by cpf', async () => {
-    const mockError = new Error('An error occurred')
+    test('search by cpf', async () => {
+      const mockError = new Error('An error occurred')
 
-    spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
+      spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
 
-    render(<MockDashboardPage />)
+      render(<MockDashboardPage />)
 
-    await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
 
-    const inputSearchElement = screen.getByTestId('test-search-bar').querySelector('input#search') as HTMLInputElement
-    const cards = screen.getAllByTestId('test-registration-card')
+      const inputSearchElement = screen.getByTestId('test-search-bar').querySelector('input#search') as HTMLInputElement
+      const cards = screen.getAllByTestId('test-registration-card')
 
-    expect(inputSearchElement).toBeInTheDocument()
-    expect(cards.length).toBe(3)
-    expect(spyOnHttpClient).toHaveBeenCalledTimes(1)
+      expect(inputSearchElement).toBeInTheDocument()
+      expect(cards.length).toBe(3)
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(1)
 
-    spyOnHttpClient.mockRejectedValue(mockError)
+      spyOnHttpClient.mockRejectedValue(mockError)
 
-    fireEvent.change(inputSearchElement, { target: { value: MOCK_CONTACTS[2].cpf } })
+      fireEvent.change(inputSearchElement, { target: { value: MOCK_CONTACTS[2].cpf } })
 
-    expect(spyOnHttpClient).toHaveBeenCalledTimes(2)
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(2)
 
-    await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
 
-    const notifyMessageElement = screen.getByTestId('test-notify-message')
+      const notifyMessageElement = screen.getByTestId('test-notify-message')
 
-    expect(notifyMessageElement).toHaveTextContent('Não foi possível carregar os contatos.')
-    expect(spyOnConsoleError).toHaveBeenCalledTimes(1)
-    expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
+      expect(notifyMessageElement).toHaveTextContent('Não foi possível carregar os contatos.')
+      expect(spyOnConsoleError).toHaveBeenCalledTimes(1)
+      expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
+    })
   })
 })
