@@ -20,14 +20,14 @@ export const Container = styled.div`
 export const Content = styled.div`
   position: relative;
   width: 100%;
-  max-width: 400px;
-  min-height: 200px;
+  max-width: 17.3rem;
+  min-height: 8.7rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 15px;
-  padding: 20px;
+  padding: 0.86rem;
 `
 
 export const Title = styled.p`
@@ -37,7 +37,7 @@ export const Title = styled.p`
 `
 
 export const Description = styled.div`
-  font-size: 16px;
+  font-size: 0.69rem;
 
   ${FontBase};
 `

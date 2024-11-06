@@ -13,15 +13,15 @@ const Component: FC<IAlertProps> = ({ onCancel, onConfirm, title, children }) =>
       <Styled.Description data-testid="test-alert-description">{children}</Styled.Description>
       <Styled.BoxActions data-testid="test-alert-actions">
         <Button
-          width="100px"
-          height="40px"
-          fontSize="15px"
+          width="4.3rem"
+          height="1.7rem"
+          fontSize="0.65rem"
           backgroundColor={Theme.colors.redMunsell}
           onClick={onCancel}
         >
           Cancelar
         </Button>
-        <Button width="100px" height="40px" fontSize="15px" onClick={onConfirm}>
+        <Button width="4.3rem" height="1.7rem" fontSize="0.65rem" onClick={onConfirm}>
           Confirmar
         </Button>
       </Styled.BoxActions>

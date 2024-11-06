@@ -7,7 +7,7 @@ import * as Styled from './styles'
 
 const Component = () => (
   <Styled.Container>
-    <IconLoading width="150px" height="150px" color={Theme.colors.white} />
+    <IconLoading width="6.52rem" height="6.52rem" color={Theme.colors.white} />
   </Styled.Container>
 )
 

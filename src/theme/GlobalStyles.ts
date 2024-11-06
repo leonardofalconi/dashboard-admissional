@@ -50,6 +50,14 @@ const GlobalStyles = createGlobalStyle`
       }
     }
 
+    h3{
+      font-size: 1.2rem;
+    }
+
+    h4{
+      font-size: 1rem;
+    }
+
     legend {
       padding: 0
     }

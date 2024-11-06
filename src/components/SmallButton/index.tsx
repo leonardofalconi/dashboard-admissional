@@ -8,9 +8,9 @@ const Component: FC<IButtonSmall> = ({ backgroundColor, textColor, onClick, chil
   <Button
     data-testid="test-button-small"
     height="auto"
-    fontSize="12px"
+    fontSize="0.52rem"
     borderRadius="4px"
-    padding="4px 16px"
+    padding="0.17rem 0.69rem"
     textColor={textColor}
     backgroundColor={backgroundColor}
     hasShadow={false}

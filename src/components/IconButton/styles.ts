@@ -6,7 +6,7 @@ export const IconButton = styled.button<TIconButtonStyled>`
   cursor: pointer;
   border: 2px solid ${({ $borderColor }) => $borderColor};
   width: fit-content;
-  padding: 4px;
+  padding: 0.17rem;
   border-radius: 24px;
   display: flex;
   align-items: center;
@@ -15,6 +15,8 @@ export const IconButton = styled.button<TIconButtonStyled>`
 
   svg {
     color: ${({ $color }) => $color};
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
   &:disabled {

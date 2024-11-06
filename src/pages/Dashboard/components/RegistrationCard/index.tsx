@@ -20,7 +20,7 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
       <Styled.Card data-testid="test-registration-card" data-test-employee-name={contact.employeeName}>
         <Styled.IconAndText>
           <HiOutlineUser />
-          <h3>{contact.employeeName}</h3>
+          <h4>{contact.employeeName}</h4>
         </Styled.IconAndText>
         <Styled.IconAndText>
           <HiOutlineMail />

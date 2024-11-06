@@ -4,15 +4,15 @@ import { TNotifyContainerStyled } from './types'
 
 export const Container = styled.div<TNotifyContainerStyled>`
   position: fixed;
-  right: 15px;
-  bottom: 15px;
+  right: 0.65rem;
+  bottom: 0.65rem;
   z-index: 9;
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 100px;
-  padding: 10px;
-  gap: 15px;
+  width: 13rem;
+  height: 4.34rem;
+  padding: 0.43rem;
+  gap: 0.65rem;
   border-radius: 15px;
   border: 1px solid ${({ theme }) => theme.colors.white};
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);

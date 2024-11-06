@@ -40,7 +40,7 @@ export const NewUserPage = () => {
     <Styled.Container data-testid="test-new-user-page">
       <Styled.BoxIconButton>
         <IconButton onClick={newUserStates.onPrevButtonClick} aria-label="back">
-          <HiOutlineArrowLeft size={24} />
+          <HiOutlineArrowLeft />
         </IconButton>
       </Styled.BoxIconButton>
       <Styled.Form
@@ -60,7 +60,7 @@ export const NewUserPage = () => {
             onChange={e => mask && newUserStates.form.setValue(field.id, formMask[mask]({ value: e.target.value }))}
           />
         ))}
-        <Styled.Button disabled={newUserStates.showPostRegistrationLoading} width="150px">
+        <Styled.Button disabled={newUserStates.showPostRegistrationLoading} width="6.52rem">
           Cadastrar
         </Styled.Button>
       </Styled.Form>

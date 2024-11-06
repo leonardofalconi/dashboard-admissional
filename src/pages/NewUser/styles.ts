@@ -8,23 +8,24 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 16px;
+  gap: 0.69rem;
   border: 2px solid ${({ theme }) => theme.colors.antiFlashWhite};
-  width: 500px;
-  padding: 48px;
+  width: 21.7rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  margin: 168px auto 0 auto;
+  margin: 7.3rem auto 0 auto;
+  max-width: 90%;
 `
 
 export const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0.69rem;
 
   ${IconButton} {
-    margin-bottom: 8px;
+    margin-bottom: 0.34rem;
     align-items: flex-start;
   }
 `
@@ -36,5 +37,5 @@ export const Button = styled(ButtonDefault)`
 export const BoxIconButton = styled.div`
   display: flex;
   align-self: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 0.43;
 `

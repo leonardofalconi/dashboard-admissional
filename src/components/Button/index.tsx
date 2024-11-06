@@ -7,14 +7,14 @@ import { IButtonProps } from './types'
 
 const Component: FC<IButtonProps> = ({
   backgroundColor = Theme.colors.polishedPine,
-  fontSize = '16px',
-  borderRadius = '36px',
+  fontSize = '0.69rem',
+  borderRadius = '1.56rem',
   textColor = Theme.colors.white,
   fontWeight = 600,
   hasShadow = true,
   width = 'auto',
-  height = '56px',
-  padding = '8px 32px',
+  height = '2.43rem',
+  padding = '0.35rem 1.39rem',
   className,
   onClick,
   disabled,
