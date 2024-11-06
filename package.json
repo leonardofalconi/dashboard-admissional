@@ -16,7 +16,7 @@
     "cypress:run": "yarn cypress:cli && cypress run",
     "cypress:open": "yarn init:db && yarn dev && cypress open --e2e",
     "cypress:ci:build": "yarn build",
-    "cypress:ci:db": "json-server --watch db.json &",
+    "cypress:ci:db": "json-server db.json &",
     "cypress:ci:server": "yarn preview &",
     "cypress:ci": "yarn cypress:ci:build && yarn cypress:ci:db && yarn cypress:ci:server && yarn cypress run",
     "prepare": "husky"
