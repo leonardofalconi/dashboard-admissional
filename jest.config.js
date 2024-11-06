@@ -1,4 +1,5 @@
 /** @type {import('jest').Config} */
+
 export default {
   verbose: true,
   preset: 'ts-jest',
@@ -8,6 +9,7 @@ export default {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
   moduleNameMapper: {
-    '^~/(.+)': '<rootDir>/src/$1',
+    '^~/(.+)': ['<rootDir>/src/$1'],
   },
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 }

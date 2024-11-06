@@ -40,6 +40,8 @@ export const useNewUserStates = (params: TUseNewUserStates): TUseNewUserStatesRe
       status: 'success',
     })
 
+    params.postClearCalledState()
+
     goToHome()
   }, [goToHome, onFormSubmitSuccess, params, params.notifyProvider])
 

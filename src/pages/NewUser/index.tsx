@@ -37,7 +37,7 @@ export const NewUserPage = () => {
   })
 
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="test-new-user-page">
       <Styled.BoxIconButton>
         <IconButton onClick={newUserStates.onPrevButtonClick} aria-label="back">
           <HiOutlineArrowLeft size={24} />
