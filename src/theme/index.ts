@@ -11,6 +11,11 @@ export const Theme = {
     lavenderBlush: '#FBEDF6',
     royalFuchsia: '#CE2893',
     antiFlashWhite: '#F0F0F0',
+    americanPink: '#FF919A',
+    eerieBlack: '#1B1919',
+    black: '#000000',
+    coral: '#FF8858',
+    grannySmithApple: '#9BE59B',
   },
   typography: {
     fontInter: {

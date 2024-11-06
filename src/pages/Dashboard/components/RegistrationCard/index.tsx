@@ -4,6 +4,7 @@ import { HiOutlineCalendar, HiOutlineMail, HiOutlineTrash, HiOutlineUser } from 
 import { Alert } from '~/components/Alert'
 import { IconButton } from '~/components/IconButton'
 import { SmallButton } from '~/components/SmallButton'
+import { Theme } from '~/theme'
 
 import * as Styled from './styles'
 import { IRegistrationCardProps, TAlert } from './types'
@@ -41,8 +42,8 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
                     onConfirm: () => onActions({ actionType: 'REPROVED', contact }),
                   }))
                 }
-                backgroundColor="#ff919a"
-                textColor="#1b1919"
+                backgroundColor={Theme.colors.americanPink}
+                textColor={Theme.colors.eerieBlack}
                 disabled={disabled}
               >
                 Reprovar
@@ -56,8 +57,8 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
                     onConfirm: () => onActions({ actionType: 'APPROVED', contact }),
                   }))
                 }
-                backgroundColor="#9be59b"
-                textColor="#000000"
+                backgroundColor={Theme.colors.grannySmithApple}
+                textColor={Theme.colors.black}
                 disabled={disabled}
               >
                 Aprovar
@@ -73,8 +74,8 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
                   onConfirm: () => onActions({ actionType: 'REVIEW', contact }),
                 }))
               }
-              backgroundColor="#ff8858"
-              textColor="#000000"
+              backgroundColor={Theme.colors.coral}
+              textColor={Theme.colors.black}
               disabled={disabled}
             >
               Revisar novamente
@@ -92,8 +93,8 @@ const Component: FC<IRegistrationCardProps> = ({ contact, onActions, disabled })
               }))
             }
             aria-label="refetch"
-            borderColor="#000"
-            color="#000"
+            borderColor={Theme.colors.black}
+            color={Theme.colors.black}
           >
             <HiOutlineTrash />
           </IconButton>
