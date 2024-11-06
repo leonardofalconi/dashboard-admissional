@@ -1,5 +1,3 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-
 import { MOCK_CONTACTS } from '~/../__mocks__/contacts'
 import { HTTP_CLIENT } from '~/clients/httpClient'
 import { Header } from '~/components/Header'
@@ -7,7 +5,8 @@ import { NotifyProvider } from '~/contexts/useNotify'
 import { RegistrationsProvider } from '~/contexts/useRegistrations'
 import { NewUserPage } from '~/pages/NewUser'
 
-import { TGetFormInputsElement, TGetFormInputsElementKey } from './types'
+import { fireEvent, render, screen, waitFor } from '..'
+import { TGetFormInputsElement, TGetFormInputsElementKey } from '../types'
 
 const mockHistory = {
   push: jest.fn(),

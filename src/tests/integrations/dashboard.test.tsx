@@ -1,11 +1,11 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-
 import { MOCK_CONTACTS } from '~/../__mocks__/contacts'
 import { HTTP_CLIENT } from '~/clients/httpClient'
 import { Header } from '~/components/Header'
 import { NotifyProvider } from '~/contexts/useNotify'
 import { RegistrationsProvider } from '~/contexts/useRegistrations'
 import { DashboardPage } from '~/pages/Dashboard'
+
+import { act, fireEvent, render, screen, waitFor } from '..'
 
 const mockHistory = {
   push: jest.fn(),
