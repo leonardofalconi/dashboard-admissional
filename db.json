@@ -1,12 +1,3 @@
 {
-  "registrations": [
-    {
-      "id": "fc16",
-      "employeeName": "Leonardo Falconi FFFF",
-      "email": "lfalconi@doris.mobi",
-      "cpf": "408.211.728-83",
-      "admissionDate": "2024-11-22",
-      "status": "REVIEW"
-    }
-  ]
+  "registrations": []
 }
