@@ -101,6 +101,21 @@ describe('Integration - New user', () => {
         expect(mockHistory.push).toHaveBeenCalledWith('/dashboard')
       })
     })
+
+    test('navigate to dashboard', async () => {
+      render(<MockNewUserPage />)
+
+      const buttonBackElement = screen.getByTestId('test-icon-button')
+
+      expect(buttonBackElement).toBeInTheDocument()
+
+      fireEvent.click(buttonBackElement)
+
+      await waitFor(() => {
+        expect(mockHistory.push).toHaveBeenCalledTimes(1)
+        expect(mockHistory.push).toHaveBeenCalledWith('/dashboard')
+      })
+    })
   })
 
   describe('Errors cases', () => {
