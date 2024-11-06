@@ -80,9 +80,8 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
     if (params.hasRegistrations || params.getRegistrationsStates.registrationsFiltering) return
 
     params.getRegistrationsStates.getRegistrationsFromApi()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.hasRegistrations, params.getRegistrationsStates.registrationsFiltering])
+  }, [])
 
   const onInputSearchChange = (e: TOnInputSearchChangeParams) => {
     e.currentTarget.value = formMask.cpf({ value: e.currentTarget.value })
@@ -137,9 +136,7 @@ export const useDashboardStates = (params: IUseDashboardStates): TUseDashboardSt
 
     params.notifyProvider.setNotify({ title, status, message })
 
-    if (!callback) return
-
-    callback()
+    callback!()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
