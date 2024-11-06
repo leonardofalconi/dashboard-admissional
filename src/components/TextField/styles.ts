@@ -10,7 +10,7 @@ export const Label = styled.label``
 
 export const Error = styled.span`
   font-size: 12px;
-  color: red;
+  color: ${({ theme }) => theme.colors.redMunsell};
 `
 
 export const Input = styled.input`
@@ -18,7 +18,7 @@ export const Input = styled.input`
   vertical-align: middle;
   border-radius: 2px;
   min-height: 36px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid rgba(36, 28, 21, 0.3);
   transition: all 0.2s ease-in-out 0s;
   font-size: 16px;
@@ -28,8 +28,8 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid #007c89;
-    box-shadow: inset 0 0 0 1px #007c89;
+    border: 1px solid ${({ theme }) => theme.colors.teal};
+    box-shadow: inset 0 0 0 1px ${({ theme }) => theme.colors.teal};
   }
 
   &:disabled {

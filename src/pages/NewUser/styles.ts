@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 16px;
-  border: 2px solid #f0f0f0;
+  border: 2px solid ${({ theme }) => theme.colors.antiFlashWhite};
   width: 500px;
   padding: 48px;
   display: flex;

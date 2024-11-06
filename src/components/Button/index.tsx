@@ -1,13 +1,15 @@
 import { FC, memo } from 'react'
 
+import { Theme } from '~/theme'
+
 import * as Styled from './styles'
 import { IButtonProps } from './types'
 
 const Component: FC<IButtonProps> = ({
-  backgroundColor = '#64a98c',
+  backgroundColor = Theme.colors.polishedPine,
   fontSize = '16px',
   borderRadius = '36px',
-  textColor = '#FFFFFF',
+  textColor = Theme.colors.white,
   fontWeight = 600,
   hasShadow = true,
   width = 'auto',

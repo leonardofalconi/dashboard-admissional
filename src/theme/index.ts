@@ -1,15 +1,19 @@
 export const Theme = {
   colors: {
-    grape: '#6324C6',
+    polishedPine: '#64a98c',
     white: '#FFFFFF',
-    selectiveYellow: '#FFB800',
-    lavenderGray: '#C4CAD4',
-    platinum: '#E2E5E9',
-    persianGreen: '#01ADA6',
-    crayola: '#E92151',
+    redMunsell: '#E80537',
+    teal: '#007C89',
+    cosmicLatte: '#FDF8E9',
+    maizeCrayola: '#EFC24D',
+    aliceBlue: '#EEEEFD',
+    palatinateBlue: '#4242DF',
+    lavenderBlush: '#FBEDF6',
+    royalFuchsia: '#CE2893',
+    antiFlashWhite: '#F0F0F0',
   },
   typography: {
-    fontMulish: {
+    fontInter: {
       family: '"Inter", sans-serif',
       weight: {
         black: 900,

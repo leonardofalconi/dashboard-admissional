@@ -25,7 +25,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 15px;
   padding: 20px;
 `

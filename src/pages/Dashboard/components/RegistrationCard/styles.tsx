@@ -4,11 +4,11 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border: 4px solid #fff;
+  border: 4px solid ${({ theme }) => theme.colors.white};
   margin: 16px;
   border-radius: 8px;
   padding: 16px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.white};
   h3,
   p {
     margin: 0;

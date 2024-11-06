@@ -14,14 +14,14 @@ export const Container = styled.div<TNotifyContainerStyled>`
   padding: 10px;
   gap: 15px;
   border-radius: 15px;
-  border: 1px solid #ffffff;
+  border: 1px solid ${({ theme }) => theme.colors.white};
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 
   background-color: ${({ $backgroundColor }) => $backgroundColor};
 
   p {
     margin: 0;
-    color: #ffffff;
+    color: ${({ theme }) => theme.colors.white};
   }
 `
 

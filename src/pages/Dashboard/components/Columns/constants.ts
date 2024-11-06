@@ -1,3 +1,5 @@
+import { Theme } from '~/theme'
+
 import { TColumn, TRegistrationColorsMap } from './types'
 
 export const ALL_COLUMNS: TColumn[] = [
@@ -8,15 +10,15 @@ export const ALL_COLUMNS: TColumn[] = [
 
 export const REGISTRATION_COLORS_MAP: TRegistrationColorsMap = {
   REVIEW: {
-    background: '#FDF8E9',
-    title: '#EFC24D',
+    background: Theme.colors.cosmicLatte,
+    title: Theme.colors.maizeCrayola,
   },
   APPROVED: {
-    background: '#EEEEFD',
-    title: '#4242DF',
+    background: Theme.colors.aliceBlue,
+    title: Theme.colors.palatinateBlue,
   },
   REPROVED: {
-    background: '#FBEDF6',
-    title: '#CE2893',
+    background: Theme.colors.lavenderBlush,
+    title: Theme.colors.royalFuchsia,
   },
 }

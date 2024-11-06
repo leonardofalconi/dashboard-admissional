@@ -12,7 +12,7 @@ export const Header = styled.header`
   padding: 0px 24px;
 
   h1 {
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     font-size: 24px;
   }
 `

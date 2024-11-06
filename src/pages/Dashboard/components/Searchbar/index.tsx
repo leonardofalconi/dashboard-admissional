@@ -5,7 +5,6 @@ import { Button } from '~/components/Button'
 import { IconButton } from '~/components/IconButton'
 import { TextField } from '~/components/TextField'
 
-// import { formMask } from '~/utils/form'
 import * as Styled from './styles'
 import { ISearchBarProps } from './types'
 

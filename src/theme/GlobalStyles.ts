@@ -24,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
 
     * {
       box-sizing: border-box;
-      font-family: ${props => props.theme.typography.fontMulish.family};
+      font-family: ${props => props.theme.typography.fontInter.family};
     }
 
     h1,
