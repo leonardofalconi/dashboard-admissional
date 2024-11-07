@@ -37,6 +37,7 @@ const getFormInputsElement = (): TGetFormInputsElement => ({
   admissionDate: screen.getByTestId('test-new-user-form').querySelector('#admissionDate')!,
 })
 
+// TODO: refactor to reuse code across cases
 describe('Integration - New user', () => {
   beforeEach(() => {
     mockHistory.push.mockClear()
@@ -44,7 +45,7 @@ describe('Integration - New user', () => {
   })
 
   describe('Success cases', () => {
-    test('should render', () => {
+    test('1 - should render', () => {
       render(<MockNewUserPage />)
 
       const buttonBackElement = screen.getByTestId('test-icon-button')
@@ -61,7 +62,7 @@ describe('Integration - New user', () => {
       )
     })
 
-    test('should create a new contact', async () => {
+    test('2 - should create a new contact', async () => {
       spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS[0] })
 
       render(<MockNewUserPage />)
@@ -101,7 +102,7 @@ describe('Integration - New user', () => {
       })
     })
 
-    test('navigate to dashboard', async () => {
+    test('3 - navigate to dashboard', async () => {
       render(<MockNewUserPage />)
 
       const buttonBackElement = screen.getByTestId('test-icon-button')
@@ -122,7 +123,7 @@ describe('Integration - New user', () => {
       spyOnConsoleError.mockClear()
     })
 
-    test('should show an error creating a new contact', async () => {
+    test('1 - should show an error creating a new contact', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockRejectedValue(mockError)
@@ -166,7 +167,7 @@ describe('Integration - New user', () => {
       })
     })
 
-    test('form inputs required validation', async () => {
+    test('2 - form inputs required validation', async () => {
       render(<MockNewUserPage />)
 
       const buttonSubmitElement = screen.getByTestId('test-button')
@@ -187,7 +188,7 @@ describe('Integration - New user', () => {
       })
     })
 
-    test('form inputs format validation', async () => {
+    test('3 - form inputs format validation', async () => {
       render(<MockNewUserPage />)
 
       const buttonSubmitElement = screen.getByTestId('test-button')

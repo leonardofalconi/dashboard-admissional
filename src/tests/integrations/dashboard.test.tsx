@@ -31,15 +31,17 @@ const MockDashboardPage = () => (
   </NotifyProvider>
 )
 
+// TODO: refactor to reuse code across cases
 describe('Integration - Dashboard', () => {
   beforeEach(() => {
     spyOnHttpClient.mockReset()
     spyOnHttpClientPatch.mockReset()
     spyOnHttpClientDelete.mockReset()
     spyOnConsoleError.mockClear()
+    mockHistory.push.mockClear()
   })
   describe('Success cases', () => {
-    test('should render', async () => {
+    test('1 - should render', async () => {
       spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
 
       render(<MockDashboardPage />)
@@ -77,7 +79,7 @@ describe('Integration - Dashboard', () => {
       })
     })
 
-    test('must approve a contact', async () => {
+    test('2 - must approve a contact', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
       spyOnHttpClientPatch.mockResolvedValue({ data: { ...MOCK_CONTACTS[0], status: 'APPROVED' } })
 
@@ -129,7 +131,7 @@ describe('Integration - Dashboard', () => {
       expect(notifyMessageElement).toHaveTextContent('Contato alterado com sucesso.')
     })
 
-    test('must disapprove a contact', async () => {
+    test('3 - must disapprove a contact', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
       spyOnHttpClientPatch.mockResolvedValue({ data: { ...MOCK_CONTACTS[0], status: 'REPROVED' } })
 
@@ -181,7 +183,7 @@ describe('Integration - Dashboard', () => {
       expect(notifyMessageElement).toHaveTextContent('Contato alterado com sucesso.')
     })
 
-    test('must be sent for reanalysis', async () => {
+    test('4 - must be sent for reanalysis', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[1]] })
       spyOnHttpClientPatch.mockResolvedValue({ data: { ...MOCK_CONTACTS[0], status: 'REVIEW' } })
 
@@ -233,7 +235,7 @@ describe('Integration - Dashboard', () => {
       expect(notifyMessageElement).toHaveTextContent('Contato alterado com sucesso.')
     })
 
-    test('deleting a contact', async () => {
+    test('5 - deleting a contact', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
       spyOnHttpClientDelete.mockResolvedValue({ data: MOCK_CONTACTS[0] })
 
@@ -285,7 +287,7 @@ describe('Integration - Dashboard', () => {
       expect(notifyMessageElement).toHaveTextContent('Contato excluído com sucesso.')
     })
 
-    test('navigate to new user page', async () => {
+    test('6 - navigate to new user page', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [] })
 
       render(<MockDashboardPage />)
@@ -305,7 +307,7 @@ describe('Integration - Dashboard', () => {
       expect(mockHistory.push).toHaveBeenCalledWith('/new-user')
     })
 
-    test('registrations refresh', async () => {
+    test('7 - registrations refresh', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0], MOCK_CONTACTS[1]] })
 
       render(<MockDashboardPage />)
@@ -336,7 +338,7 @@ describe('Integration - Dashboard', () => {
       })
     })
 
-    test('search by cpf', async () => {
+    test('8 - search by cpf', async () => {
       spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
 
       render(<MockDashboardPage />)
@@ -363,7 +365,78 @@ describe('Integration - Dashboard', () => {
       expect(cards.length).toBe(1)
     })
 
-    test('cancel an interaction', async () => {
+    test('9 - refreshing after a cpf filter', async () => {
+      spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
+
+      render(<MockDashboardPage />)
+
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+
+      const inputSearchElement = screen.getByTestId('test-search-bar').querySelector('input#search') as HTMLInputElement
+      let cards = screen.getAllByTestId('test-registration-card')
+
+      expect(inputSearchElement).toBeInTheDocument()
+      expect(cards.length).toBe(3)
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(1)
+
+      spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[2]] })
+
+      fireEvent.change(inputSearchElement, { target: { value: MOCK_CONTACTS[2].cpf } })
+
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(2)
+
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+
+      cards = screen.getAllByTestId('test-registration-card')
+
+      expect(cards.length).toBe(1)
+
+      spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
+
+      const buttonRefreshElement = screen
+        .getByTestId('test-search-bar')
+        .querySelector('[data-testid="test-icon-button"]') as HTMLButtonElement
+      cards = screen.getAllByTestId('test-registration-card')
+
+      fireEvent.click(buttonRefreshElement)
+
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(3)
+
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+
+      await waitFor(() => {
+        const cards = screen.getAllByTestId('test-registration-card')
+
+        expect(cards.length).toBe(3)
+        expect(inputSearchElement.value).toBe('')
+      })
+    })
+
+    test('10 - when entering a CPF with fewer digits than necessary, nothing should happen', async () => {
+      spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
+
+      render(<MockDashboardPage />)
+
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+
+      const inputSearchElement = screen.getByTestId('test-search-bar').querySelector('input#search') as HTMLInputElement
+      let cards = screen.getAllByTestId('test-registration-card')
+
+      expect(inputSearchElement).toBeInTheDocument()
+      expect(cards.length).toBe(3)
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(1)
+
+      spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[2]] })
+
+      fireEvent.change(inputSearchElement, { target: { value: '123123' } })
+
+      cards = screen.getAllByTestId('test-registration-card')
+
+      expect(cards.length).toBe(3)
+      expect(spyOnHttpClient).not.toHaveBeenCalledTimes(2)
+    })
+
+    test('11 - cancel an interaction', async () => {
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
 
       render(<MockDashboardPage />)
@@ -404,10 +477,45 @@ describe('Integration - Dashboard', () => {
 
       expect(alertElement).not.toBeInTheDocument()
     })
+
+    test('12 - it should be possible to go to the new user screen with filter by cpf applied', async () => {
+      spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
+
+      render(<MockDashboardPage />)
+
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+
+      const buttonGoToNewUerPageElement = screen
+        .getByTestId('test-search-bar')
+        .querySelector('[data-testid="test-button"]') as HTMLButtonElement
+      const inputSearchElement = screen.getByTestId('test-search-bar').querySelector('input#search') as HTMLInputElement
+      let cards = screen.getAllByTestId('test-registration-card')
+
+      expect(inputSearchElement).toBeInTheDocument()
+      expect(cards.length).toBe(3)
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(1)
+
+      spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[2]] })
+
+      fireEvent.change(inputSearchElement, { target: { value: MOCK_CONTACTS[2].cpf } })
+
+      expect(spyOnHttpClient).toHaveBeenCalledTimes(2)
+
+      await act(async () => new Promise(resolve => setTimeout(resolve, 0)))
+
+      cards = screen.getAllByTestId('test-registration-card')
+
+      expect(cards.length).toBe(1)
+
+      fireEvent.click(buttonGoToNewUerPageElement)
+
+      expect(mockHistory.push).toHaveBeenCalledTimes(1)
+      expect(mockHistory.push).toHaveBeenCalledWith('/new-user')
+    })
   })
 
   describe('Errors cases', () => {
-    test('should render with error', async () => {
+    test('1 - should render with error', async () => {
       const mockError = new Error('An error occurred')
       spyOnHttpClient.mockRejectedValue(mockError)
 
@@ -422,7 +530,7 @@ describe('Integration - Dashboard', () => {
       })
     })
 
-    test('Approve a contact', async () => {
+    test('2 - approve a contact', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
@@ -473,7 +581,7 @@ describe('Integration - Dashboard', () => {
       expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
     })
 
-    test('must disapprove a contact', async () => {
+    test('3 - must disapprove a contact', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
@@ -524,7 +632,7 @@ describe('Integration - Dashboard', () => {
       expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
     })
 
-    test('must be sent for reanalysis', async () => {
+    test('4 - must be sent for reanalysis', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[1]] })
@@ -575,7 +683,7 @@ describe('Integration - Dashboard', () => {
       expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
     })
 
-    test('deleting a contact', async () => {
+    test('5 - deleting a contact', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0]] })
@@ -626,7 +734,7 @@ describe('Integration - Dashboard', () => {
       expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
     })
 
-    test('registrations refresh', async () => {
+    test('6 - registrations refresh', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockResolvedValue({ data: [MOCK_CONTACTS[0], MOCK_CONTACTS[1]] })
@@ -659,7 +767,7 @@ describe('Integration - Dashboard', () => {
       expect(spyOnConsoleError).toHaveBeenCalledWith(mockError)
     })
 
-    test('search by cpf', async () => {
+    test('7 - search by cpf', async () => {
       const mockError = new Error('An error occurred')
 
       spyOnHttpClient.mockResolvedValue({ data: MOCK_CONTACTS })
