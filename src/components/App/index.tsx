@@ -1,12 +1,11 @@
 import { ThemeProvider } from 'styled-components'
 
+import { Header } from '~/components/Header'
+import { NotifyProvider } from '~/contexts/useNotify'
+import { RegistrationsProvider } from '~/contexts/useRegistrations'
 import { Router } from '~/router'
-
-import { NotifyProvider } from '../../contexts/useNotify'
-import { RegistrationsProvider } from '../../contexts/useRegistrations'
-import { Theme } from '../../theme'
-import GlobalStyles from '../../theme/GlobalStyles'
-import { Header } from '../Header'
+import { Theme } from '~/theme'
+import GlobalStyles from '~/theme/GlobalStyles'
 
 export const App = () => (
   <ThemeProvider theme={Theme}>

@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
 
+import { Button } from '~/components/Button'
 import { Theme } from '~/theme'
 
 import * as Styled from './styles'
-import { Button } from '../Button'
 import { IAlertProps } from './types'
 
 const Component: FC<IAlertProps> = ({ onCancel, onConfirm, title, children }) => (

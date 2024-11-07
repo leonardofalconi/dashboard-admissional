@@ -1,4 +1,5 @@
-import { NOTIFY_ERRORS, NOTIFY_SUCCESS } from '../contants'
+import { NOTIFY_ERRORS, NOTIFY_SUCCESS } from '~/pages/Dashboard/contants'
+
 import { TGetMessageByActionMap, TGetMessageByActionParams, TGetMessageByActionReturn, TMessageType } from './type'
 
 export const getMessageByAction = ({ action, type }: TGetMessageByActionParams): TGetMessageByActionReturn => {

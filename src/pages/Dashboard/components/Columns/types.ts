@@ -1,6 +1,5 @@
 import { IContact, TContactStatus } from '~/entities/contact'
-
-import { IRegistrationCardProps } from '../RegistrationCard/types'
+import { IRegistrationCardProps } from '~/pages/Dashboard/components/RegistrationCard/types'
 
 export type TColumn = {
   title: string

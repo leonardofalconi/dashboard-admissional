@@ -5,7 +5,7 @@ import { FC, ReactElement, ReactNode } from 'react'
 
 import { RenderOptions, RenderResult, render } from '@testing-library/react'
 
-import { Theme } from '../theme'
+import { Theme } from '~/theme'
 
 const AllTheProviders: FC<{ children: ReactNode }> = ({ children }) => {
   return <ThemeProvider theme={Theme}>{children}</ThemeProvider>

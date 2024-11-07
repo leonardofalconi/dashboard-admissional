@@ -1,7 +1,8 @@
 import { FC, memo } from 'react'
 
+import { RegistrationCard } from '~/pages/Dashboard/components/RegistrationCard'
+
 import * as Styled from './styles'
-import { RegistrationCard } from '../RegistrationCard'
 import { ALL_COLUMNS } from './constants'
 import { IColumnsProps } from './types'
 
