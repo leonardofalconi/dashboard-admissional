@@ -197,6 +197,28 @@ describe('Registrations', () => {
       cy.get('input#email').next('span').should('have.text', 'Inserir de acordo com o exemplo: exemplo@caju.com')
       cy.get('input#cpf').next('span').should('have.text', 'Digitar apenas números e 11 digitos')
     })
+
+    it('9 - it should be possible to create a new contact while is filtering by cpf and see the new contact in the list', () => {
+      navigateToNewUser()
+
+      createNewContact(MOCK_CONTACTS[0])
+
+      navigateToNewUser()
+
+      createNewContact(MOCK_CONTACTS[1])
+
+      contactsCountValidation({ qty: 2 })
+
+      searchByCpf({ cpf: MOCK_CONTACTS[0].cpf })
+
+      contactsCountValidation({ qty: 1 })
+
+      navigateToNewUser()
+
+      createNewContact(MOCK_CONTACTS[2])
+
+      contactsCountValidation({ qty: 3 })
+    })
   })
 
   describe('Error cases', () => {
