@@ -13,6 +13,9 @@ import {
   notifyValidation,
   registrationsRefresh,
   searchByCpf,
+  typeInputCpf,
+  typeInputEmail,
+  typeInputEmployeeName,
 } from '../utils/registrations'
 
 describe('Registrations', () => {
@@ -168,6 +171,31 @@ describe('Registrations', () => {
       contactDelete({ name: MOCK_CONTACTS[2].name, column: 'reproved', alertActionOption: 'cancel' })
 
       contactFromReprovedToReview({ name: MOCK_CONTACTS[2].name })
+    })
+
+    it('8 - Form validations', () => {
+      navigateToNewUser()
+
+      cy.get('[data-testid="test-new-user-form"] [data-testid="test-button"]').click()
+
+      cy.get('[data-testid="test-new-user-form"]').should('exist')
+
+      cy.get('input#employeeName').next('span').should('have.text', 'Campo obrigatório')
+      cy.get('input#email').next('span').should('have.text', 'Campo obrigatório')
+      cy.get('input#cpf').next('span').should('have.text', 'Campo obrigatório')
+      cy.get('input#admissionDate').next('span').should('have.text', 'Campo obrigatório')
+
+      typeInputEmployeeName({ name: 'Leonardo' })
+      typeInputEmail({ email: 'leonardo@com' })
+      typeInputCpf({ cpf: '123123' })
+
+      cy.get('[data-testid="test-new-user-form"] [data-testid="test-button"]').click()
+
+      cy.get('[data-testid="test-new-user-form"]').should('exist')
+
+      cy.get('input#employeeName').next('span').should('have.text', 'Inserir de acordo com o exemplo: Leonardo Falconi')
+      cy.get('input#email').next('span').should('have.text', 'Inserir de acordo com o exemplo: exemplo@caju.com')
+      cy.get('input#cpf').next('span').should('have.text', 'Digitar apenas números e 11 digitos')
     })
   })
 
