@@ -1,4 +1,4 @@
 // TODO: Create TextField component unit test
-describe('TextField component', () => {
+describe.skip('TextField component', () => {
   test('test', () => {})
 })

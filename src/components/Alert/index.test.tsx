@@ -1,4 +1,4 @@
 // TODO: Create Alert component unit test
-describe('Alert component', () => {
+describe.skip('Alert component', () => {
   test('test', () => {})
 })

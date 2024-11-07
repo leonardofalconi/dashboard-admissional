@@ -1,4 +1,4 @@
 // TODO: Create Button component unit test
-describe('Button component', () => {
+describe.skip('Button component', () => {
   test('test', () => {})
 })

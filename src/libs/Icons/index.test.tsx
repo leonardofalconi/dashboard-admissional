@@ -1,4 +1,4 @@
 // TODO: Create Icons unit test
-describe('Icons', () => {
+describe.skip('Icons', () => {
   test('test', () => {})
 })

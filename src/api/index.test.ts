@@ -1,4 +1,4 @@
 // TODO: Create Api Provider unit test
-describe('Api provider', () => {
+describe.skip('Api provider', () => {
   test('test', () => {})
 })

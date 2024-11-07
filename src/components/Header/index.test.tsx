@@ -1,4 +1,4 @@
 // TODO: Create Header component unit test
-describe('Header component', () => {
+describe.skip('Header component', () => {
   test('test', () => {})
 })

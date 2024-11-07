@@ -1,4 +1,4 @@
 // TODO: Create Form utils unit test
-describe('Form utils', () => {
+describe.skip('Form utils', () => {
   test('test', () => {})
 })

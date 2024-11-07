@@ -1,4 +1,4 @@
 // TODO: Create Loading component unit test
-describe('Loading component', () => {
+describe.skip('Loading component', () => {
   test('test', () => {})
 })

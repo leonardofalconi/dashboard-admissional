@@ -1,4 +1,4 @@
 // TODO: Create useRegistrations context unit test
-describe('useRegistrations context', () => {
+describe.skip('useRegistrations context', () => {
   test('test', () => {})
 })

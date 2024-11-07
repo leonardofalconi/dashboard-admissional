@@ -1,4 +1,4 @@
 // TODO: Create Notify component unit test
-describe('Notify component', () => {
+describe.skip('Notify component', () => {
   test('test', () => {})
 })

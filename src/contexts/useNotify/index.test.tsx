@@ -1,4 +1,4 @@
 // TODO: Create useNotify context unit test
-describe('useNotify context', () => {
+describe.skip('useNotify context', () => {
   test('test', () => {})
 })
